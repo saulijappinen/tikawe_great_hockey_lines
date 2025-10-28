@@ -4,7 +4,17 @@
 
 **28.10.25**
 
-Updated readme. Other scripts not yet in github, need to clean them a bit first. 
+Released version 1.0, see NEWS.md. 
+
+Basically stuff related to materials in videos 1-3 and weeks 1-3. Every thing is done with functions in app.py other than db_module. 
+
+
+At least the following bugs are present: 
+
+- database gets locked (only can add 1 user per session)
+- session does not end if you don't log out (maybe?) - so the user stays while the app closes
+- you can insert a line without logging in etc. stuff
+
 
 **27.10.25**
 

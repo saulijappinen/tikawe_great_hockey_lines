@@ -42,11 +42,21 @@ Additional information
 `/`
 
 * app.py 
+* db_module.py
+* config.py 
+
+Documentation files: 
+
+* news.md: release version notes 
 * log.md: own notes on what has been done / notes to future self
 
 `templates`
 
 * html pages for render_template function
+  
+`sql`
+
+* sql files for creating tables to database
 
 ## Other info
 
