@@ -10,6 +10,7 @@ from random import choice
 # import python modules from /
 import db_module
 import config # 
+import items
 
 
 # BEGIN APP
@@ -46,11 +47,13 @@ def create_item():
     # input_nationality = request.form.getlist("nationality")
 
     # write to db
-    try:
-        sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id) VALUES (?, ?, ?, ?, ?)"
-        db_module.execute(sql, [input_linename, input_player_lw, input_player_c, input_player_rw, user_id]) 
-    except sqlite3.IntegrityError:
-        return "ERROR: line addition did not succeed!" 
+    items.add_item(input_linename, input_player_lw, input_player_c, input_player_rw, user_id)
+
+    # try:
+    #     sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id) VALUES (?, ?, ?, ?, ?)"
+    #     db_module.execute(sql, [input_linename, input_player_lw, input_player_c, input_player_rw, user_id]) 
+    # except sqlite3.IntegrityError:
+    #     return "ERROR: line addition did not succeed!" 
     
     # ret to main page
     #return redirect("/")
