@@ -1,0 +1,64 @@
+<html>
+
+<head>
+  <title>Index page</title>
+</head>
+
+<body>
+  <h1>Welcome to the world of great ice hockey lines 🏒 🥅</h1>
+  
+  {% if session.username %}
+  
+  <p>
+    <!-- Time to get fanatic, <b>you {{ random_team }}!</b> -->
+    Time to get fanatic, <b>{{ session.username }}</b>! ⚡️ <br><br>
+    Your id number is {{ session.user_id }}<br>
+    What would you like to do next? <br>
+
+    <a href="/add_line">Create new line</a><br>
+  </p>
+
+  <p>
+    <a href="/logout">Log out</a><br>
+  </p>
+
+  {% else %}
+
+  <p>
+    <!--  -->
+    Time to get fanatic, <b>you {{ random_team }}</b>!
+  </p>
+
+  <p>
+    <a href="/login">Log in</a><br>
+    <a href="/register">Register as new user</a>
+     <!-- <a href="/logout">Kirjaudu ulos</a>-->
+  </p>
+
+
+
+  {% endif %}
+
+  <!-- Always show this -->
+
+
+  <!-- 
+  <h3>
+    Please enter your credentials or register as a new user:
+  </h3>
+  <form action="/login" method="post">
+    <p>
+      Tunnus: <br />
+      <input type="text" name="username" />
+    </p>
+    <p>
+      Salasana: <br />
+      <input type="password" name="password" />
+    </p>
+    <input type="submit" value="Kirjaudu" />
+  </form>
+  -->
+  
+</body>
+
+</html>
