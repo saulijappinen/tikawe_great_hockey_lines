@@ -1,6 +1,12 @@
 # Log of dev stuff
 
 
+**4.11.25**
+
+First steps to release 2.0 (video nmbr 4 stuff)
+
+* items_functions
+* item_page for every record (not very good yet but working)
 
 **28.10.25**
 

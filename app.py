@@ -26,7 +26,13 @@ input_random_team = choice(nhl_teams)
 # pages
 @app.route("/")
 def index():
-    return render_template("index.html", random_team=input_random_team)
+    items_all = items.get_all_items()
+    return render_template("index.html", random_team=input_random_team, items_displayed=items_all)
+
+@app.route("/item/<int:item_id>") # one page for every line in db
+def show_item(item_id):
+    item = items.get_one_item(item_id)
+    return render_template("item_page.html", item_page=item)
 
 @app.route("/add_line")
 def add_line():
