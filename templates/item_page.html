@@ -1,0 +1,32 @@
+<html>
+
+<head>
+  <title>{{ item_page.linename }}</title>
+</head>
+
+<body>
+  <h1>Selected line: {{ item_page.linename }}</h1>
+
+  <p>This line is id <b>{{ item_page.id }}</b></p>
+  <p>Starting in the left wing, please welcome <b>{{ item_page.player_lw }}</b></p>
+  <p>In the middle, please welcome <b>{{ item_page.player_c }}</b></p>
+  <p>And last but not least in the right wing, please welcome <b>{{ item_page.player_rw }}</b></p>
+
+
+  {% if session.user_id == item_page.user_id %} <!-- only if needed!-->
+
+  <p>
+    <a href="/edit_item/{{ item_page.id }}">Edit your line</a>
+    <br>
+    <a href="/">Back to main page</a>
+  </p>
+
+  {% endif %}
+
+  <p>
+  <a href="/">Back to main page</a>
+  </p>
+
+</body>
+
+</html>
