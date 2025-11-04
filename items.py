@@ -27,3 +27,21 @@ def get_one_item(item_id): # for displaying one
         on i.user_id = u.id
     WHERE i.id =  ?"""
     return db_module.query(sql, [item_id])[0]
+
+# altering items functions ----
+
+def update_item(linename, player_lw, player_c, player_rw, item_id):
+    print("update_item() executed")
+    sql = """UPDATE items SET linename = ?,
+                              player_lw = ?,
+                              player_c = ?,
+                              player_rw = ?
+                          WHERE id = ?"""
+    db_module.execute(sql, [linename, player_lw, player_c, player_rw, item_id])
+
+    # sql = "DELETE FROM item_classes WHERE item_id = ?"
+    # db.execute(sql, [item_id])
+
+    # sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
+    # for class_title, class_value in classes:
+    #     db.execute(sql, [item_id, class_title, class_value])

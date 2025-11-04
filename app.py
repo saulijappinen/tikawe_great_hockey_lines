@@ -29,10 +29,19 @@ def index():
     items_all = items.get_all_items()
     return render_template("index.html", random_team=input_random_team, items_displayed=items_all)
 
+
+
+# lines/items stuff
+
 @app.route("/item/<int:item_id>") # one page for every line in db
 def show_item(item_id):
     item = items.get_one_item(item_id)
     return render_template("item_page.html", item_page=item)
+
+@app.route("/edit_item/<int:item_id>")
+def edit_item(item_id):
+    item = items.get_one_item(item_id)
+    return render_template("item_edit.html", item_page=item)
 
 @app.route("/add_line")
 def add_line():
@@ -72,6 +81,31 @@ def create_item():
                            player_rw = input_player_rw
                            #decade=input_decade, nationalities = input_nationality,league = input_league
                            )
+
+@app.route("/update_item", methods=["POST"]) # add_line posts to this
+def update_item():
+    # item id from page hidden variable
+    item_id = request.form["item_id"]
+    # user info
+    user_id = session["user_id"]
+    # main info
+    input_linename = request.form["linename"]
+    input_player_lw = request.form["player_lw"]
+    input_player_c = request.form["player_c"]
+    input_player_rw = request.form["player_rw"]
+    # attributes
+    # input_decade = request.form["decade"]
+    # input_league = request.form["league"]
+    # input_nationality = request.form.getlist("nationality")
+
+    # write to db / user_id and line id not altered!!
+    items.update_item(input_linename, input_player_lw, input_player_c, input_player_rw, item_id)
+
+    # ret to item page
+    return redirect("item/" + str(item_id))
+
+
+# user stuff
 
 @app.route("/register") # this posts to /create, not login!!
 def register():

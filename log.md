@@ -3,10 +3,15 @@
 
 **4.11.25**
 
-First steps to release 2.0 (video nmbr 4 stuff)
+First steps to release 2.0 
 
-* items_functions
-* item_page for every record (not very good yet but working)
+* (video nmbr 4 stuff)
+  * items_functions for getting items
+  * item_page for every record (not very good yet but working)
+
+* video 5 stuff
+  * item_edit & update_item function working (main info)
+    * FIXME: still not showing all the previous values in item_edit.html
 
 **28.10.25**
 
