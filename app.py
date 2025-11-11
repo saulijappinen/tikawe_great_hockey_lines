@@ -57,6 +57,17 @@ def delete_item(item_id):
             return redirect("/")
         else:
             return redirect("/item/" + str(item_id))
+        
+@app.route("/find_item")
+def find_item():
+    query = request.args.get("query")
+    if query:
+        print("searching database")
+        search_results = items.find_items(query) # can be many lines!
+    else: # to handle empty search / when coming to page
+        query = ""
+        search_results = []
+    return render_template("item_find.html", query=query, results=search_results)
 
 @app.route("/add_line")
 def add_line():
