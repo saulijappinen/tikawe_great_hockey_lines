@@ -19,8 +19,21 @@
   </p>
 
   <p>
+    <a href="/find_item">Search the database</a><br>
+  </p>
+  
+  <p>
     <a href="/logout">Log out</a><br>
   </p>
+  <br>
+
+  <h2>Lines currently in the database:</h2>
+  <br>
+  <ul>
+    {% for it in items_displayed %}
+    <li><a href="/item/{{ it.id }}">{{  it.linename  }}</a>, added by user id: {{ it.user_id  }}</li>
+    {% endfor %}
+  </ul>
 
   {% else %}
 
