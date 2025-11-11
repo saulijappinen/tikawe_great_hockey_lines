@@ -45,3 +45,8 @@ def update_item(linename, player_lw, player_c, player_rw, item_id):
     # sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
     # for class_title, class_value in classes:
     #     db.execute(sql, [item_id, class_title, class_value])
+
+def delete_item(item_id):
+    print(f"{item_id} got deleted.")
+    sql = "DELETE FROM items WHERE id = ?"
+    db_module.execute(sql, [item_id])

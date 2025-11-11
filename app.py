@@ -43,6 +43,21 @@ def edit_item(item_id):
     item = items.get_one_item(item_id)
     return render_template("item_edit.html", item_page=item)
 
+@app.route("/delete_item/<int:item_id>", methods=["GET", "POST"])
+def delete_item(item_id):
+
+    item = items.get_one_item(item_id)
+
+    if request.method == "GET":
+        return render_template("item_delete.html", item=item)
+
+    if request.method == "POST":
+        if "delete" in request.form:
+            items.delete_item(item_id)
+            return redirect("/")
+        else:
+            return redirect("/item/" + str(item_id))
+
 @app.route("/add_line")
 def add_line():
     return render_template("add_line.html")
