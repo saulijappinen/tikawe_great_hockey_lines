@@ -6,6 +6,8 @@ My course project for course `hy-tikawe`: hockey lines app - share your favorite
 
 The main idea is to add and browse hockey forward lines. 
 
+**The aim is to include the following functionalities**
+
 * a user can 
   * create a user account to use the app 
   * log in (and out) of the app
@@ -26,14 +28,42 @@ The main idea is to add and browse hockey forward lines.
   * rating (1 to 5) of the line (based on reviews)
 
 
+**Available features in the current release version (2.0), see `NEWS.md`**
+
+
 ## How to use
 
-TBA 
+install `flask` library
+
+```
+$ pip install flask
+```
+
+Create sqlite database tables
+
+```
+$ sqlite3 database.db < sql/schemas.sql
+```
+
+Run the app
+
+```
+$ flask run
+```
+
+You can find possible lines to be added for example in: 
+
+<https://thehockeywriters.com/top-10-nhl-lines/>
+
 
 Additional information
 
 * built on the following
   * Python 3.13.7 
+
+
+
+------
 
 ## Repository structure
 
@@ -44,6 +74,7 @@ Additional information
 * app.py 
 * db_module.py
 * config.py 
+* items.py: functions related to items (lines)
 
 Documentation files: 
 

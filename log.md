@@ -1,6 +1,15 @@
 # Log of dev stuff
 
 
+**12.11.25**
+
+Release version 2.0 with meta docs updated. 
+
+**11.11.25**
+
+Final steps for realase 2.0, but still needs to be pushed. 
+
+
 **4.11.25**
 
 First steps to release 2.0 
