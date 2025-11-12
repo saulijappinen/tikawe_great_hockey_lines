@@ -33,16 +33,25 @@ The main idea is to add and browse hockey forward lines.
 
 ## How to use
 
-install `flask` library
+Make sure python is installed and then create and activate virtual environment with the following
+
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+```
+
+install `flask` library and dependencies to your virtual environment
 
 ```
 $ pip install flask
 ```
 
-Create sqlite database tables
+Create sqlite database from schemas file (and see the tables included)
 
 ```
 $ sqlite3 database.db < sql/schemas.sql
+$ sqlite3 .tables 
+$ sqlite3 .quit
 ```
 
 Run the app
