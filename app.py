@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, abort
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -41,12 +41,19 @@ def show_item(item_id):
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
     item = items.get_one_item(item_id)
+
+    if item["user_id"] != session["user_id"]:
+        abort(403) # https://en.wikipedia.org/wiki/HTTP_403
+
     return render_template("item_edit.html", item_page=item)
 
 @app.route("/delete_item/<int:item_id>", methods=["GET", "POST"])
 def delete_item(item_id):
 
     item = items.get_one_item(item_id)
+
+    if item["user_id"] != session["user_id"]:
+        abort(403) # https://en.wikipedia.org/wiki/HTTP_403
 
     if request.method == "GET":
         return render_template("item_delete.html", item=item)
@@ -112,6 +119,12 @@ def create_item():
 def update_item():
     # item id from page hidden variable
     item_id = request.form["item_id"]
+
+    item = items.get_item(item_id) # need to do here also because content could be altered for another item (video 8), not just in edit/delete!
+
+    if item["user_id"] != session["user_id"]:
+        abort(403)
+
     # user info
     user_id = session["user_id"]
     # main info

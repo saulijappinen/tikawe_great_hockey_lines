@@ -1,6 +1,12 @@
 # Log of dev stuff
 
 
+
+**17.11.25**
+
+Edit, update, delete now forbidden for other users (previously could be done with changing url/website hidden field)
+
+
 **12.11.25**
 
 Release version 2.0 with meta docs updated. 
