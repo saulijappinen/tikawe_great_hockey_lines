@@ -11,7 +11,7 @@ from random import choice
 import db_module
 import config # 
 import items
-
+import users 
 
 # BEGIN APP
 app = Flask(__name__)
@@ -29,12 +29,19 @@ def index():
     items_all = items.get_all_items()
     return render_template("index.html", random_team=input_random_team, items_displayed=items_all)
 
+# general
 
+def require_login():
+    if "user_id" not in session:
+        abort(403)
 
 # lines/items stuff
 
 @app.route("/item/<int:item_id>") # one page for every line in db
 def show_item(item_id):
+
+    require_login()
+
     item = items.get_one_item(item_id)
 
     if not item: # function returns None if no ID
@@ -44,6 +51,9 @@ def show_item(item_id):
 
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
+
+    require_login()
+
     item = items.get_one_item(item_id)
 
     if not item: # function returns None if no ID
@@ -56,6 +66,8 @@ def edit_item(item_id):
 
 @app.route("/delete_item/<int:item_id>", methods=["GET", "POST"])
 def delete_item(item_id):
+
+    require_login()
 
     item = items.get_one_item(item_id)
 
@@ -77,7 +89,11 @@ def delete_item(item_id):
         
 @app.route("/find_item")
 def find_item():
+
+    require_login()
+
     query = request.args.get("query")
+    
     if query:
         print("searching database")
         search_results = items.find_items(query) # can be many lines!
@@ -88,10 +104,16 @@ def find_item():
 
 @app.route("/add_line")
 def add_line():
+
+    require_login()
+    
     return render_template("add_line.html")
 
 @app.route("/create_line", methods=["POST"]) # add_line posts to this
 def create_item():
+
+    require_login()
+
     # user info
     user_id = session["user_id"]
     # main info
@@ -127,6 +149,9 @@ def create_item():
 
 @app.route("/update_item", methods=["POST"]) # add_line posts to this
 def update_item():
+
+    require_login()
+    
     # item id from page hidden variable
     item_id = request.form["item_id"]
 
