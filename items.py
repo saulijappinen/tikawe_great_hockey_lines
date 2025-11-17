@@ -26,7 +26,10 @@ def get_one_item(item_id): # for displaying one
     LEFT JOIN USERS as u
         on i.user_id = u.id
     WHERE i.id =  ?"""
-    return db_module.query(sql, [item_id])[0]
+
+    res = db_module.query(sql, [item_id]) # extra step so that none is option
+
+    return res[0] if res else None
 
 # altering items functions ----
 

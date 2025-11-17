@@ -36,11 +36,18 @@ def index():
 @app.route("/item/<int:item_id>") # one page for every line in db
 def show_item(item_id):
     item = items.get_one_item(item_id)
+
+    if not item: # function returns None if no ID
+        abort(404) # https://en.wikipedia.org/wiki/HTTP_404
+
     return render_template("item_page.html", item_page=item)
 
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
     item = items.get_one_item(item_id)
+
+    if not item: # function returns None if no ID
+        abort(404) # https://en.wikipedia.org/wiki/HTTP_404
 
     if item["user_id"] != session["user_id"]:
         abort(403) # https://en.wikipedia.org/wiki/HTTP_403
@@ -51,6 +58,9 @@ def edit_item(item_id):
 def delete_item(item_id):
 
     item = items.get_one_item(item_id)
+
+    if not item: # function returns None if no ID
+        abort(404) # https://en.wikipedia.org/wiki/HTTP_404
 
     if item["user_id"] != session["user_id"]:
         abort(403) # https://en.wikipedia.org/wiki/HTTP_403
