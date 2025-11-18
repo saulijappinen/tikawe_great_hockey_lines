@@ -1,7 +1,10 @@
+from datetime import datetime
+
 import db_module
 
 # for adding lines 
 def add_item(linename, player_lw, player_c, player_rw, user_id):
+    curtime = datetime.now().replace(microsecond=0)
     sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id) VALUES (?, ?, ?, ?, ?)"
     db_module.execute(sql, [linename, player_lw, player_c, player_rw, user_id]) 
     print(f"Line {linename} added!") # for dev
@@ -34,13 +37,14 @@ def get_one_item(item_id): # for displaying one
 # altering items functions ----
 
 def update_item(linename, player_lw, player_c, player_rw, item_id):
-    print("update_item() executed")
+    curtime = datetime.now().replace(microsecond=0)
     sql = """UPDATE items SET linename = ?,
                               player_lw = ?,
                               player_c = ?,
                               player_rw = ?
                           WHERE id = ?"""
     db_module.execute(sql, [linename, player_lw, player_c, player_rw, item_id])
+    print("update_item() executed")
 
     # sql = "DELETE FROM item_classes WHERE item_id = ?"
     # db.execute(sql, [item_id])

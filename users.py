@@ -1,4 +1,5 @@
 from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import datetime
 
 import db_module
 
@@ -13,6 +14,7 @@ def get_user_items(user_id):
 
 def create_user(username, password):
     password_hash = generate_password_hash(password)
+    curtime = datetime.now().replace(microsecond=0)
     sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
     db_module.execute(sql, [username, password_hash])
     print("user created")

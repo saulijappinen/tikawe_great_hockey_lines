@@ -7,10 +7,10 @@
 <body>
   <h1>Welcome to the world of great ice hockey lines 🏒 🥅</h1>
   
-  {% if session.username %}
+  {% if session.username %} <!-- Logged in -->
   
   <p>
-    <!-- Time to get fanatic, <b>you {{ random_team }}!</b> -->
+
     Time to get fanatic, <b>{{ session.username }}</b>! ⚡️ <br><br>
     Your id number is {{ session.user_id }}<br>
     What would you like to do next? <br>
@@ -35,10 +35,10 @@
     {% endfor %}
   </ul>
 
-  {% else %}
+  {% else %} <!-- Not logged in> -->
 
   <p>
-    <!--  -->
+
     Time to get fanatic, <b>you {{ random_team }}</b>!
   </p>
 
