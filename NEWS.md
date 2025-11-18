@@ -1,3 +1,25 @@
+# Release 3.0 / 18.11.25
+
+*Some under the hood updates and user page*
+
+Under the hood
+
++ csrf 
++ url errors (html 403/404)
++ timestamps to user and items
++ bugfixes
+  + update_items: correct function name
+
+User pages
+
++ shows user name, added lines and creation date of the user account 
+
+Notes
+
++ currently, only line and player names and modification time are added to database even though it is possible to enter more information in the html page (add line/edit line)
+  + accordingly, only those attributes can be edited
++ the search functionality only searches for keywords in line name
+
 # Release 2.0 / 12.11.25
 
 *Items can be altered and searched*

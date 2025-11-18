@@ -1,11 +1,15 @@
 # Log of dev stuff
 
 
+**18.11.25**
+
+* version 3 pushed to master
+* start of additional information pages
 
 **17.11.25**
 
-Edit, update, delete now forbidden for other users (previously could be done with changing url/website hidden field)
-
+* Edit, update, delete now forbidden for other users (previously could be done with changing url/website hidden field)
+* error 404 (not found) to same functions + show_item
 
 **12.11.25**
 
