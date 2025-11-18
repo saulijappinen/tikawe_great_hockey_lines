@@ -2,8 +2,6 @@ import sqlite3
 from flask import Flask
 from flask import redirect, render_template, request, session, abort
 
-from werkzeug.security import generate_password_hash, check_password_hash
-
 # standard libraries come to any venv(?) so random works!
 from random import choice
 
@@ -193,11 +191,9 @@ def create_user():
     password2 = request.form["password2"]
     if password1 != password2:
         return "ERROR: inserted passwords not equal!"
-    password_hash = generate_password_hash(password1)
 
     try:
-        sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
-        db_module.execute(sql, [username, password_hash]) 
+        users.create_user(username, password1) # hash created inside function
     except sqlite3.IntegrityError:
         return "ERROR: user already exists!"
 
@@ -217,13 +213,10 @@ def login():
     if request.method == "POST": 
         username = request.form["username"]
         password = request.form["password"]
-   
-        sql = "SELECT id, password_hash FROM users WHERE username = ?" # select also id because needed in other places
-        result = db_module.query(sql, [username])[0]
-        user_id = result["id"]
-        password_hash = result["password_hash"]
+
+        user_id = users.check_login(username, password) # only returns if user exists
      
-        if check_password_hash(password_hash, password):
+        if user_id: # if exists = check_login returns id 
             # these are kept in memory for the whole session
             session["user_id"] = user_id
             session["username"] = username
