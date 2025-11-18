@@ -151,7 +151,7 @@ def create_item():
 def update_item():
 
     require_login()
-    
+
     # item id from page hidden variable
     item_id = request.form["item_id"]
 
@@ -237,3 +237,15 @@ def logout():
         del session["username"]
         del session["user_id"]
     return redirect("/")
+
+@app.route("/user/<int:user_id>") 
+def show_user(user_id):
+
+    user_info = users.get_user_info(user_id)
+
+    if not user_info: # function returns None if no user
+        abort(404) # https://en.wikipedia.org/wiki/HTTP_404
+
+    user_items = users.get_user_items(user_id)
+
+    return render_template("user_page.html", user=user_info, items=user_items)

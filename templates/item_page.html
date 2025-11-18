@@ -7,11 +7,13 @@
 <body>
   <h1>Selected line: {{ item_page.linename }}</h1>
 
-  <p>This line is id <b>{{ item_page.id }}</b></p>
+  <p>This line is id <b>{{ item_page.id }}</b>. It is created by <a href="/user/{{ item_page.user_id }}">{{  item_page.username  }}</a></p>
+  <br>
+  <h2>The players</h2>
   <p>Starting in the left wing, please welcome <b>{{ item_page.player_lw }}</b></p>
   <p>In the middle, please welcome <b>{{ item_page.player_c }}</b></p>
   <p>And last but not least in the right wing, please welcome <b>{{ item_page.player_rw }}</b></p>
-
+  <br>
 
   {% if session.user_id == item_page.user_id %} <!-- only if needed!-->
 

@@ -1,0 +1,26 @@
+<html>
+
+<head>
+  <title>User with id {{ user.id }}</title>
+</head>
+
+<body>
+  <h1>Selected user: {{ user.username }}</h1>
+
+  <p>{{ user.username }} has created {{ items | count }} lines. </p>
+
+  <h3>Lines added by the user</h3>
+  <ul>
+    {% for it in items %}
+    <li><a href="/item/{{ it.id }}">{{  it.linename  }}</a></li>
+    {% endfor %}
+  </ul>
+
+
+  <p>
+  <a href="/">Back to main page</a>
+  </p>
+
+</body>
+
+</html>
