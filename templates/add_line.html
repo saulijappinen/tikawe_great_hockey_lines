@@ -62,7 +62,7 @@
       <input type="radio" name="rating" value="4" /> 🔥🔥🔥🔥
       <input type="radio" name="rating" value="5" /> 🔥🔥🔥🔥🔥 
     </p>
-
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" /> <!--security-->
     <input type="submit" value="Submit your line" />
   </form>
 </body>

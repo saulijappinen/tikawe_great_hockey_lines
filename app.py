@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session, abort
 
 # standard libraries come to any venv(?) so random works!
 from random import choice
+from  secrets import token_hex
 
 # import python modules from /
 import db_module
@@ -27,10 +28,16 @@ def index():
     items_all = items.get_all_items()
     return render_template("index.html", random_team=input_random_team, items_displayed=items_all)
 
-# general
+# general / only check, no returns
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf(): 
+    if "csrf_token" not in request.form: # form does not return token at all
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]: # malicious field
         abort(403)
 
 # lines/items stuff
@@ -79,6 +86,7 @@ def delete_item(item_id):
         return render_template("item_delete.html", item=item)
 
     if request.method == "POST":
+        check_csrf() # only done when posting
         if "delete" in request.form:
             items.delete_item(item_id)
             return redirect("/")
@@ -111,6 +119,7 @@ def add_line():
 def create_item():
 
     require_login()
+    check_csrf()
 
     # user info
     user_id = session["user_id"]
@@ -149,6 +158,7 @@ def create_item():
 def update_item():
 
     require_login()
+    check_csrf()
 
     # item id from page hidden variable
     item_id = request.form["item_id"]
@@ -220,6 +230,8 @@ def login():
             # these are kept in memory for the whole session
             session["user_id"] = user_id
             session["username"] = username
+            session["csrf_token"] = token_hex(16) # one token for one sign in
+            print(f"session token is {session["csrf_token"]}") 
             return redirect("/")
         else:
             return 'Error: wrong username or password! Please try <a href="/login">logging in</a> again.'

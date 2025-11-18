@@ -7,6 +7,7 @@
 <body>
     <p>Are you sure you want to delete {{ item.linename }}?</p>
     <form action="/delete_item/{{ item.id }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" /> <!--security-->
         <input type="submit" name="delete" value="Delete, I am sure">
         <input type="submit" name="back" value="Go back">
     </form>
