@@ -163,7 +163,7 @@ def update_item():
     # item id from page hidden variable
     item_id = request.form["item_id"]
 
-    item = items.get_item(item_id) # need to do here also because content could be altered for another item (video 8), not just in edit/delete!
+    item = items.get_one_item(item_id) # need to do here also because content could be altered for another item (video 8), not just in edit/delete!
 
     if item["user_id"] != session["user_id"]:
         abort(403)
