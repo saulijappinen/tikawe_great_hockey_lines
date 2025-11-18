@@ -7,6 +7,7 @@
 <body>
   <h1>Selected user: {{ user.username }}</h1>
 
+  <p>{{ user.username }} (id {{ user.id }}) has been a member of our community since {{ user.creation_time }}. </p>
   <p>{{ user.username }} has created {{ items | count }} lines. </p>
 
   <h3>Lines added by the user</h3>

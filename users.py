@@ -4,7 +4,7 @@ from datetime import datetime
 import db_module
 
 def get_user_info(user_id):
-    sql = "SELECT id, username FROM users WHERE id = ?"
+    sql = "SELECT id, username, creation_time FROM users WHERE id = ?"
     result = db_module.query(sql, [user_id])
     return result[0] if result else None
 
@@ -15,8 +15,8 @@ def get_user_items(user_id):
 def create_user(username, password):
     password_hash = generate_password_hash(password)
     curtime = datetime.now().replace(microsecond=0)
-    sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
-    db_module.execute(sql, [username, password_hash])
+    sql = "INSERT INTO users (username, password_hash, creation_time) VALUES (?, ?, ?)"
+    db_module.execute(sql, [username, password_hash, curtime])
     print("user created")
 
 def check_login(username, password): # get_user_name_when_logging_in
