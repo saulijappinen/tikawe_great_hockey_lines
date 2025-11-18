@@ -18,7 +18,37 @@
   <p>And last but not least in the right wing, please welcome <b>{{ item_page.player_rw }}</b></p>
   <br>
 
-  {% if session.user_id == item_page.user_id %} <!-- only if needed!-->
+  <h2>Line ratings</h2>
+
+  <h3>Given ratings</h3>
+
+  <br>
+  <ul>
+    {% for rate in rating_page %}
+    <li>Rating {{ rate.rating }} given by user {{ rate.username  }} (id {{ rate.user_id }}) at {{ rate.rating_time  }}</li>
+    {% endfor %}
+  </ul>
+
+
+  <!-- only if not the creator -->
+  {% if session.user_id != item_page.user_id %}
+
+  <h3>Add a rating</h3>
+  <form action="/create_rating" method="post">
+    <input type="radio" name="rating" value="1" /> 🔥
+    <input type="radio" name="rating" value="2" /> 🔥🔥
+    <input type="radio" name="rating" value="3" /> 🔥🔥🔥
+    <input type="radio" name="rating" value="4" /> 🔥🔥🔥🔥
+    <input type="radio" name="rating" value="5" /> 🔥🔥🔥🔥🔥 
+    <input type="hidden" name="item_id" value="{{ item_page.id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="hidden" name="item_id" value="{{ item_page.id }}" /> <!-- needed for database write-->
+    <input type="submit" value="Evaluate the line" />
+  </form>
+
+  {% endif %}
+
+  {% if session.user_id == item_page.user_id %} <!-- only if the creator is on the page-->
 
   <p>
     <a href="/edit_item/{{ item_page.id }}">Edit your line</a>

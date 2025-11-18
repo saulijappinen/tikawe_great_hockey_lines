@@ -68,3 +68,20 @@ def find_items(query):
              ORDER BY id DESC"""
     #like = "%" + query + "%"
     return db_module.query(sql, [query_wildcards])
+
+# RATINGS
+
+def add_rating(item_id, user_id, rating):
+    curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
+    sql = "INSERT INTO ratings (item_id, user_id, rating, rating_time) VALUES (?, ?, ?, ?)"
+    db_module.execute(sql, [item_id, user_id, rating, curtime]) 
+    print(f"Rating added to item {item_id}!") 
+
+def get_ratings(item_id):    
+    sql = """SELECT r.*, u.username
+    FROM ratings as r 
+    LEFT JOIN USERS as u
+        on r.user_id = u.id
+    WHERE r.item_id =  ? -- item-id, not rating id!
+    ORDER BY r.id DESC""" # from newest
+    return db_module.query(sql, [item_id])

@@ -48,11 +48,12 @@ def show_item(item_id):
     require_login()
 
     item = items.get_one_item(item_id)
+    rating = items.get_ratings(item_id)
 
     if not item: # function returns None if no ID
         abort(404) # https://en.wikipedia.org/wiki/HTTP_404
 
-    return render_template("item_page.html", item_page=item)
+    return render_template("item_page.html", item_page=item, rating_page=rating)
 
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
@@ -129,8 +130,8 @@ def create_item():
     input_player_c = request.form["player_c"]
     input_player_rw = request.form["player_rw"]
     # attributes
-    # input_decade = request.form["decade"]
-    # input_league = request.form["league"]
+    input_decade = request.form["decade"]
+    input_league = request.form["league"]
     # input_nationality = request.form.getlist("nationality")
 
     # write to db
@@ -186,8 +187,24 @@ def update_item():
     # ret to item page
     return redirect("item/" + str(item_id))
 
+@app.route("/create_rating", methods=["POST"]) # add_line posts to this
+def create_rating():
 
-# user stuff
+    require_login()
+    check_csrf()
+
+    input_rating = request.form["rating"]
+    user_id = session["user_id"]
+    item_id = request.form["item_id"]
+
+    # write to db
+    items.add_rating(item_id, user_id, input_rating)
+
+    return redirect("item/" + str(item_id))
+
+
+
+# user stuff ------
 
 @app.route("/register") # this posts to /create, not login!!
 def register():

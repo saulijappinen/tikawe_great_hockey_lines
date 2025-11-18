@@ -22,3 +22,11 @@ CREATE TABLE items (
     user_id INTEGER REFERENCES users,
     modification_time TEXT 
 );
+
+CREATE TABLE ratings (
+    id INTEGER PRIMARY KEY, 
+    item_id INTEGER REFERENCES items, 
+    user_id INTEGER REFERENCES users,
+    rating INTEGER, 
+    rating_time TEXT 
+);
