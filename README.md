@@ -80,10 +80,11 @@ Additional information
 
 `/`
 
+* config.py 
 * app.py 
 * db_module.py
-* config.py 
 * items.py: functions related to items (lines)
+* users.py: functions related to users 
 
 Documentation files: 
 

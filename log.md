@@ -4,7 +4,7 @@
 **18.11.25**
 
 * version 3 pushed to master
-* start of additional information pages
+* start of ratings = other user input
 
 **17.11.25**
 
