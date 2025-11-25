@@ -18,6 +18,56 @@
   <p>And last but not least in the right wing, please welcome <b>{{ item_page.player_rw }}</b></p>
   <br>
 
+  <h2>Additional information</h2>
+
+  {% if classes_page %}
+    {% for class in classes_page %}
+    <li>{{ class.title}}: {{ class.value }}</li>
+    {% endfor %}
+  {% endif %}
+  
+
+  <!--
+  {% if classes_page %}
+    <ul>
+      {% for class in classes_page %}
+        {% if class.title == "league" %}
+          <h3>Special note for Class A:</h3>
+        {% elif class.title == "nationality" %}
+          <h3>Different note for Class B:</h3>
+        {% endif %}
+        <li>{{ class.title }}: {{ class.value }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  -->
+
+  <!--
+  {% if classes_page %}
+    {% set current_title = None %}
+    {% for row in classes_page %}
+      {% if row['title'] != current_title %}
+        {% if current_title is not none %}
+          </ul>
+        {% endif %}
+        <h3>
+          {% if row['title'] == "league" %}
+            Special note for Class A:
+          {% elif row['title'] == "nationality" %}
+            Different note for Class B:
+          {% else %}
+            {{ row['title'] }}
+          {% endif %}
+        </h3>
+        <ul>
+        {% set current_title = row['title'] %}
+      {% endif %}
+      <li>{{ row['value'] }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  -->
+
   <h2>Line ratings</h2>
 
   <h3>Given ratings</h3>

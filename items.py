@@ -2,12 +2,21 @@ from datetime import datetime
 
 import db_module
 
-# for adding lines 
-def add_item(linename, player_lw, player_c, player_rw, user_id):
+# for adding lines AND CLASSES!
+def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
+
+    # line info to items
     curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
     sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id, modification_time) VALUES (?, ?, ?, ?, ?, ?)"
     db_module.execute(sql, [linename, player_lw, player_c, player_rw, user_id, curtime]) 
     print(f"Line {linename} added!") # for dev
+
+    # classes of the line to classes
+    item_id = db_module.last_insert_id()
+
+    sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
+    for class_title, class_value in classes:
+        db_module.execute(sql, [item_id, class_title, class_value])
 
 # get functions 
 def get_all_items(): # for displaying all
@@ -84,4 +93,22 @@ def get_ratings(item_id):
         on r.user_id = u.id
     WHERE r.item_id =  ? -- item-id, not rating id!
     ORDER BY r.id DESC""" # from newest
+    return db_module.query(sql, [item_id])
+
+# CLASSES
+
+def get_all_classes():
+    sql = "SELECT title, value FROM classes ORDER BY id"
+    result = db_module.query(sql)
+
+    classes = {}
+    for title, value in result:
+        classes[title] = []
+    for title, value in result:
+        classes[title].append(value)
+
+    return classes
+
+def get_classes_for_item(item_id):
+    sql = "SELECT title, value FROM item_classes WHERE item_id = ?"
     return db_module.query(sql, [item_id])

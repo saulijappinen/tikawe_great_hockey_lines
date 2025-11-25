@@ -48,12 +48,19 @@ def show_item(item_id):
     require_login()
 
     item = items.get_one_item(item_id)
-    rating = items.get_ratings(item_id)
 
-    if not item: # function returns None if no ID
+    if not item: 
         abort(404) # https://en.wikipedia.org/wiki/HTTP_404
 
-    return render_template("item_page.html", item_page=item, rating_page=rating)
+    rating = items.get_ratings(item_id)
+    classes = items.get_classes_for_item(item_id)
+    print("fetching the classes")
+    print(classes)
+
+    return render_template("item_page.html", 
+                           item_page=item, 
+                           rating_page=rating,
+                           classes_page=classes)
 
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
@@ -67,6 +74,16 @@ def edit_item(item_id):
 
     if item["user_id"] != session["user_id"]:
         abort(403) # https://en.wikipedia.org/wiki/HTTP_403
+
+    # all_classes = items.get_all_classes()
+
+    # selected_classes = items.get_classes_for_item(item_id)
+
+    # classes = {}
+    # for my_class in all_classes:
+    #     classes[my_class] = ""
+    # for entry in selected_classes:
+    #     classes[entry["title"]] = entry["value"]
 
     return render_template("item_edit.html", item_page=item)
 
@@ -109,12 +126,16 @@ def find_item():
         search_results = []
     return render_template("item_find.html", query=query, results=search_results)
 
-@app.route("/add_line")
+@app.route("/add_line") # just the page, create_line adds to data base
 def add_line():
 
     require_login()
-    
-    return render_template("add_line.html")
+
+    print(items.get_all_classes())
+
+    possible_classes = items.get_all_classes()
+
+    return render_template("add_line.html", classes=possible_classes)
 
 @app.route("/create_line", methods=["POST"]) # add_line posts to this
 def create_item():
@@ -129,31 +150,36 @@ def create_item():
     input_player_lw = request.form["player_lw"]
     input_player_c = request.form["player_c"]
     input_player_rw = request.form["player_rw"]
-    # attributes
-    input_decade = request.form["decade"]
-    input_league = request.form["league"]
-    # input_nationality = request.form.getlist("nationality")
+    #input_decade = request.form["decade"]
+
+    all_classes = items.get_all_classes()
+
+    input_classes = []
+
+    for entry in request.form.getlist("category"): # go through 2 possible cats and append classes
+        if entry:
+            class_title, class_value = entry.split("_") # see html category value
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            input_classes.append((class_title, class_value))
+            print(class_title, class_value)
 
     # write to db
-    items.add_item(input_linename, input_player_lw, input_player_c, input_player_rw, user_id)
+    items.add_item(input_linename, input_player_lw, input_player_c, input_player_rw, user_id, input_classes)
 
-    # try:
-    #     sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id) VALUES (?, ?, ?, ?, ?)"
-    #     db_module.execute(sql, [input_linename, input_player_lw, input_player_c, input_player_rw, user_id]) 
-    # except sqlite3.IntegrityError:
-    #     return "ERROR: line addition did not succeed!" 
-    
-    # ret to main page
-    #return redirect("/")
+    item_id = db_module.last_insert_id()
+    return redirect("/item/" + str(item_id))
 
     # ret to result page
-    return render_template("result.html", 
-                           linename=input_linename,
-                           player_lw = input_player_lw, 
-                           player_c = input_player_c, 
-                           player_rw = input_player_rw
-                           #decade=input_decade, nationalities = input_nationality,league = input_league
-                           )
+    # return render_template("result.html", 
+    #                        linename=input_linename,
+    #                        player_lw = input_player_lw, 
+    #                        player_c = input_player_c, 
+    #                        player_rw = input_player_rw
+    #                        #decade=input_decade, nationalities = input_nationality,league = input_league
+    #                        )
 
 @app.route("/update_item", methods=["POST"]) # add_line posts to this
 def update_item():
@@ -187,7 +213,7 @@ def update_item():
     # ret to item page
     return redirect("item/" + str(item_id))
 
-@app.route("/create_rating", methods=["POST"]) # add_line posts to this
+@app.route("/create_rating", methods=["POST"]) 
 def create_rating():
 
     require_login()
