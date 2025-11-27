@@ -75,17 +75,23 @@ def edit_item(item_id):
     if item["user_id"] != session["user_id"]:
         abort(403) # https://en.wikipedia.org/wiki/HTTP_403
 
-    # all_classes = items.get_all_classes()
+    all_classes = items.get_all_classes()
 
-    # selected_classes = items.get_classes_for_item(item_id)
+    selected_classes = {}
 
-    # classes = {}
-    # for my_class in all_classes:
-    #     classes[my_class] = ""
-    # for entry in selected_classes:
-    #     classes[entry["title"]] = entry["value"]
+    # Initialize with the title as key (my_class is already a string)
+    for my_class in all_classes:
+        selected_classes[my_class] = []
 
-    return render_template("item_edit.html", item_page=item)
+    # Append all values for each title
+    for entry in items.get_classes_for_item(item_id):
+        title = entry["title"]
+        if title in selected_classes:
+            selected_classes[title].append(entry["value"])
+
+    print("selected classes are: ", selected_classes)
+
+    return render_template("item_edit.html", item_page=item, all_classes=all_classes)
 
 @app.route("/delete_item/<int:item_id>", methods=["GET", "POST"])
 def delete_item(item_id):
@@ -166,10 +172,11 @@ def create_item():
             input_classes.append((class_title, class_value))
             print(class_title, class_value)
 
-    # write to db
-    items.add_item(input_linename, input_player_lw, input_player_c, input_player_rw, user_id, input_classes)
+    # write to db AND return the id! not cool but works.. 
+    item_id = items.add_item(input_linename, input_player_lw, input_player_c, input_player_rw, user_id, input_classes)
 
-    item_id = db_module.last_insert_id()
+    print("item id is", item_id)
+
     return redirect("/item/" + str(item_id))
 
     # ret to result page
@@ -202,13 +209,25 @@ def update_item():
     input_player_lw = request.form["player_lw"]
     input_player_c = request.form["player_c"]
     input_player_rw = request.form["player_rw"]
-    # attributes
-    # input_decade = request.form["decade"]
-    # input_league = request.form["league"]
-    # input_nationality = request.form.getlist("nationality")
+
+    # classes
+    all_classes = items.get_all_classes()
+
+    input_classes = []
+
+    for entry in request.form.getlist("category"): # go through 2 possible cats and append classes
+        if entry:
+            class_title, class_value = entry.split("_") # see html category value
+            # prevent html editing!
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            input_classes.append((class_title, class_value))
+            print(class_title, class_value)
 
     # write to db / user_id and line id not altered!!
-    items.update_item(input_linename, input_player_lw, input_player_c, input_player_rw, item_id)
+    items.update_item(input_linename, input_player_lw, input_player_c, input_player_rw, item_id, input_classes)
 
     # ret to item page
     return redirect("item/" + str(item_id))

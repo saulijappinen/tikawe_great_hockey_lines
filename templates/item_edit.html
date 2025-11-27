@@ -27,41 +27,37 @@
     </p>
 
     <!-- attributes --> 
-    <p>
-      <h4>When was the line at its peak (decade)</h4>
-      <input type="radio" name="decade" value="1980" /> 1980s
-      <input type="radio" name="decade" value="1990" /> 1990s
-      <input type="radio" name="decade" value="2000" /> 2000s
-      <input type="radio" name="decade" value="2010" /> 2010s
-      <input type="radio" name="decade" value="2020" /> 2020s
-    </p>
-
-    <p>Insert league:</p>
-    <p>
-      <input type="checkbox" name="league" value="nhl" /> NHL team
-      <input type="checkbox" name="league" value="national" /> National team
-      <input type="checkbox" name="league" value="liga" /> Finnish Liga
-      <input type="checkbox" name="league" value="shl" /> Swedish SHL
-      <input type="checkbox" name="league" value="other" /> Other 
-    </p>
-
-    <p>Insert nationalities of the players:</p>
-    <p>
-      <input type="checkbox" name="nationality" value="can" /> Canada 🇨🇦
-      <input type="checkbox" name="nationality" value="usa" /> USA 🇺🇸
-      <input type="checkbox" name="nationality" value="fin" /> Finland 🇫🇮
-      <input type="checkbox" name="nationality" value="swe" /> Sweden 🇸🇪
-      <input type="checkbox" name="nationality" value="other" /> Other 🌎
-    </p>
+    {% for class_name, options in all_classes.items() %}
+    <fieldset>
+        <legend>{{ class_name }}</legend>
+        {% for option in options %}
+            <div>
+              <input type="checkbox" name="category" value="{{ class_name }}_{{ option }}">
+              <label for="{{ class_name }}_{{ option }}">{{ option }}</label>
+            </div>
+        {% endfor %}
+    </fieldset>
+    <br>
+    {% endfor %}
     
-    <p>Rate your line (1 to 5):</p>
+    <!--
+    {% for class in all_classes %}
     <p>
-      <input type="radio" name="rating" value="1" /> 🔥
-      <input type="radio" name="rating" value="2" /> 🔥🔥
-      <input type="radio" name="rating" value="3" /> 🔥🔥🔥
-      <input type="radio" name="rating" value="4" /> 🔥🔥🔥🔥
-      <input type="radio" name="rating" value="5" /> 🔥🔥🔥🔥🔥 
+      <label for="class{{ class }}">{{ class }}:</label> <br />
+      <select name="category" id="class{{ class }}" multiple>
+        <option value="">(valitse)</option>
+        {% for option in all_classes[class] %}
+          {% if class in selected_classes and option in selected_classes[class] %}
+          <option value="{{ class }}:{{ option }}" selected>{{ option }}</option>
+          {% else %}
+          <option value="{{ class }}:{{ option }}">{{ option }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
     </p>
+    {% endfor %}
+    -->
+
     <input type="hidden" name="item_id" value="{{ item_page.id }}" /> <!--needed for updating-->
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" /> <!--security-->
     <input type="submit" value="Edit your line" />

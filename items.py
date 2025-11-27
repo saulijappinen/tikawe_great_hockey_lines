@@ -18,6 +18,8 @@ def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
     for class_title, class_value in classes:
         db_module.execute(sql, [item_id, class_title, class_value])
 
+    return item_id # this so that redirect after adding works!!
+
 # get functions 
 def get_all_items(): # for displaying all
     print("running get_all_items() function")
@@ -45,7 +47,7 @@ def get_one_item(item_id): # for displaying one
 
 # altering items functions ----
 
-def update_item(linename, player_lw, player_c, player_rw, item_id):
+def update_item(linename, player_lw, player_c, player_rw, item_id, classes):
     curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
     sql = """UPDATE items SET linename = ?,
                               player_lw = ?,
@@ -56,17 +58,25 @@ def update_item(linename, player_lw, player_c, player_rw, item_id):
     db_module.execute(sql, [linename, player_lw, player_c, player_rw, curtime, item_id])
     print("update_item() executed")
 
-    # sql = "DELETE FROM item_classes WHERE item_id = ?"
-    # db.execute(sql, [item_id])
+    # CLASSES PART
 
-    # sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
-    # for class_title, class_value in classes:
-    #     db.execute(sql, [item_id, class_title, class_value])
+    sql = "DELETE FROM item_classes WHERE item_id = ?"
+    db_module.execute(sql, [item_id])
+
+    sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
+    for class_title, class_value in classes:
+        db_module.execute(sql, [item_id, class_title, class_value])
 
 def delete_item(item_id):
-    print(f"{item_id} got deleted.")
+
+    # FIRST NEED TO DELETE REFERENCES!!
+    sql = "DELETE FROM item_classes WHERE item_id = ?"
+    db_module.execute(sql, [item_id])
+
     sql = "DELETE FROM items WHERE id = ?"
     db_module.execute(sql, [item_id])
+
+    print(f"{item_id} got deleted.")
 
 def find_items(query):
     query_wildcards = f"%{query}%" # wildcards possible
