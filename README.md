@@ -6,9 +6,12 @@ My course project for course `hy-tikawe`: hockey lines app - share your favorite
 
 The main idea is to add and browse hockey forward lines. 
 
-Current functionalities: see `NEWS.md`
+### Current functionalities
 
-**The aim is to include the following functionalities**
+see `NEWS.md`
+
+
+### Planned functionalities (palautus 1)
 
 * a user can 
   * create a user account to use the app 
@@ -27,9 +30,6 @@ Current functionalities: see `NEWS.md`
     * nationalities of the players
     * what leagues was that line in
   * rating (1 to 5) of the line (based on reviews)
-
-
-**Available features in the current release version (2.0), see `NEWS.md`**
 
 
 ## How to use
@@ -51,6 +51,7 @@ Create sqlite database from schemas file (and see the tables included)
 
 ```
 $ sqlite3 database.db < sql/schemas.sql
+$ sqlite3 database.db < sql/init_classes.sql
 $ sqlite3 .tables 
 $ sqlite3 .quit
 ```
