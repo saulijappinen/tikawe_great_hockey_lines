@@ -1,6 +1,17 @@
 # Log of dev stuff
 
 
+**27.11.25**
+
+Classes edit working but not able to show the class selections... Fixed delete (delete references first) and dirty fix to adding line redirect (function returns the id). 
+
+Classes edit possibilities
+- try to change all_classes to list and see if video code works with just changing it to fieldset.
+
+**25.11.25**
+
+Classes almost working (edit not yet) at some level. Somehow created problems with adding line and deleting line, though... 
+
 **18.11.25**
 
 * version 3 pushed to master

@@ -6,6 +6,8 @@ My course project for course `hy-tikawe`: hockey lines app - share your favorite
 
 The main idea is to add and browse hockey forward lines. 
 
+Current functionalities: see `NEWS.md`
+
 **The aim is to include the following functionalities**
 
 * a user can 
@@ -21,10 +23,9 @@ The main idea is to add and browse hockey forward lines.
 
 * information included of the lines (at least the following)
   * line and player names (main information)
-  * additional attributes
+  * additional attributes (classes)
     * nationalities of the players
-    * which decade the line was at its prime
-    * what league was that line in
+    * what leagues was that line in
   * rating (1 to 5) of the line (based on reviews)
 
 

@@ -1,4 +1,18 @@
-# Release 3.0 / 18.11.25
+# Release v4.0 / 27.11.25
+
+*Classes added (edit not yet working completely) and ratings possible*
+
+Notes
+
++ key new features
+  + classes (nationalities and league) now available for adding and editing
+  + rating other users lines is possible
+
++ known bugs in current functionalities
+  + in line edit, the predifined classes are not showing. however the edit itself works 
+
+
+# Release v3.0 / 18.11.25
 
 *Some under the hood updates and user page*
 
@@ -20,7 +34,7 @@ Notes
   + accordingly, only those attributes can be edited
 + the search functionality only searches for keywords in line name
 
-# Release 2.0 / 12.11.25
+# Release v2.0 / 12.11.25
 
 *Items can be altered and searched*
 
@@ -39,7 +53,7 @@ Notes
 
 ----
 
-# Release 1.0 / 28.10.25
+# Release v1.0 / 28.10.25
 
 *Basic stuff works without displaying the items*
 
