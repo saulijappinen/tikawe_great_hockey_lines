@@ -1,3 +1,7 @@
 database.db
 tmp
 todo.md
+
+venv
+__pycache__
+.DS_Store
