@@ -30,16 +30,41 @@ def get_all_items(): # for displaying all
     #          GROUP BY items.id
     #          ORDER BY items.id DESC"""
 
-    return db_module.query("SELECT * FROM ITEMS ORDER BY ID DESC") # in descending order
+    return db_module.query(
+        """
+        SELECT id, 
+        linename, 
+        player_lw, 
+        player_c, 
+        player_rw, 
+        user_id, 
+        modification_time  
+        
+        FROM ITEMS 
+        ORDER BY ID DESC
+        """
+        ) # in descending order
 
 
 def get_one_item(item_id): # for displaying one
     print("running get_one_item() function")
-    sql = """SELECT i.*, u.username
+    sql = """
+    SELECT i.id 
+    , i.linename 
+    , i.player_lw 
+    , i.player_c 
+    , i.player_rw
+    , i.user_id
+    , i.modification_time  
+    , u.username
+
     FROM ITEMS as i 
+    
     LEFT JOIN USERS as u
         on i.user_id = u.id
-    WHERE i.id =  ?"""
+    
+    WHERE i.id =  ?
+    """
 
     res = db_module.query(sql, [item_id]) # extra step so that none is option
 
@@ -97,12 +122,22 @@ def add_rating(item_id, user_id, rating):
     print(f"Rating added to item {item_id}!") 
 
 def get_ratings(item_id):    
-    sql = """SELECT r.*, u.username
+    sql = """
+    SELECT r.id
+    , r.item_id  
+    , r.user_id 
+    , r.rating 
+    , r.rating_time 
+    , u.username
+
     FROM ratings as r 
+    
     LEFT JOIN USERS as u
         on r.user_id = u.id
+    
     WHERE r.item_id =  ? -- item-id, not rating id!
-    ORDER BY r.id DESC""" # from newest
+    ORDER BY r.id DESC
+    """ 
     return db_module.query(sql, [item_id])
 
 # CLASSES
