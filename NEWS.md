@@ -1,3 +1,21 @@
+# Release v5.5 / 5.12.25
+
+*Small improvements*
+
+Notes
+
+* key new features
+  * length limits to text input (add / edit line)
+  * search now works in all txt fields
+  * not able to insert empty classes
+  
+* fixed bugs
+  * delete item 
+
++ known bugs in current functionalities
+  + class number check only checks amount of inputs, not that both league and nationality have been inserted
+
+
 # Release v5 / 5.12.25
 
 *Bugfixes, classes now working better, flash msgs for user stuff*
