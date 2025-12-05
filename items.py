@@ -95,6 +95,10 @@ def update_item(linename, player_lw, player_c, player_rw, item_id, classes):
 def delete_item(item_id):
 
     # FIRST NEED TO DELETE REFERENCES!!
+
+    sql = "DELETE FROM ratings WHERE item_id = ?"
+    db_module.execute(sql, [item_id])
+
     sql = "DELETE FROM item_classes WHERE item_id = ?"
     db_module.execute(sql, [item_id])
 
