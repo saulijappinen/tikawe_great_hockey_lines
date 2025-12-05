@@ -32,7 +32,11 @@
         <legend>{{ class_name }}</legend>
         {% for option in options %}
             <div>
-              <input type="checkbox" name="category" value="{{ class_name }}_{{ option }}">
+              <input type="checkbox" 
+                     name="category" 
+                     value="{{ class_name }}_{{ option }}"
+                     id="{{ class_name }}_{{ option }}"
+                     {% if option in selected_classes.get(class_name, []) %}checked{% endif %}>
               <label for="{{ class_name }}_{{ option }}">{{ option }}</label>
             </div>
         {% endfor %}

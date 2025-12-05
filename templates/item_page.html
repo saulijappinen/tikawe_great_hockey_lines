@@ -21,10 +21,29 @@
   <h2>Additional information</h2>
 
   {% if classes_page %}
-    {% for class in classes_page %}
-    <li>{{ class.title}}: {{ class.value }}</li>
+    {% for class_title, value in classes_page.items() %}
+    <h3>
+      {% if class_title == "league" %}
+        {{ class_title }} 🏒 
+      {% else %}
+        {{ class_title }} 🌍
+      {% endif %}
+    </h3>
+    <ul>
+      {% for val in value %}
+        <li>
+          {% if val == "finland" %}
+            {{ val }} 🇫🇮 
+          {% elif val == "sweden" %}
+            {{ val }} 🇸🇪
+          {% else %}
+            {{ val }}
+          {% endif %}
+        </li>
+      {% endfor %}
+      </ul>
     {% endfor %}
-  {% endif %}
+  {% endif %} 
   
 
   <!--

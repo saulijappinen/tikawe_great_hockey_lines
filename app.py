@@ -53,14 +53,22 @@ def show_item(item_id):
         abort(404) # https://en.wikipedia.org/wiki/HTTP_404
 
     rating = items.get_ratings(item_id)
-    classes = items.get_classes_for_item(item_id)
-    print("fetching the classes")
-    print(classes)
+    classes_for_item = items.get_classes_for_item(item_id)
+
+    grouped_classes = {} # for printing on page
+    
+    for entry in classes_for_item:
+        title = entry["title"]
+        if title not in grouped_classes:
+            grouped_classes[title] = []
+        grouped_classes[title].append(entry["value"])
+
+    print(grouped_classes)
 
     return render_template("item_page.html", 
                            item_page=item, 
                            rating_page=rating,
-                           classes_page=classes)
+                           classes_page=grouped_classes)
 
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
@@ -75,7 +83,7 @@ def edit_item(item_id):
     if item["user_id"] != session["user_id"]:
         abort(403) # https://en.wikipedia.org/wiki/HTTP_403
 
-    all_classes = items.get_all_classes()
+    all_classes = items.get_all_classes() # all possible
 
     selected_classes = {}
 
@@ -84,14 +92,14 @@ def edit_item(item_id):
         selected_classes[my_class] = []
 
     # Append all values for each title
-    for entry in items.get_classes_for_item(item_id):
+    for entry in items.get_classes_for_item(item_id): 
         title = entry["title"]
         if title in selected_classes:
             selected_classes[title].append(entry["value"])
 
     print("selected classes are: ", selected_classes)
 
-    return render_template("item_edit.html", item_page=item, all_classes=all_classes)
+    return render_template("item_edit.html", item_page=item, all_classes=all_classes, selected_classes=selected_classes)
 
 @app.route("/delete_item/<int:item_id>", methods=["GET", "POST"])
 def delete_item(item_id):
