@@ -110,12 +110,16 @@ def delete_item(item_id):
 def find_items(query):
     query_wildcards = f"%{query}%" # wildcards possible
     query_wildcards = query_wildcards.lower() # and make lowercase
+
     sql = """SELECT id, linename
              FROM items
              WHERE lower(linename) LIKE ?
+             or lower(player_lw) LIKE ?
+             or lower(player_c) LIKE ?
+             or lower(player_rw) LIKE ?
              ORDER BY id DESC"""
-    #like = "%" + query + "%"
-    return db_module.query(sql, [query_wildcards])
+    
+    return db_module.query(sql, [query_wildcards, query_wildcards, query_wildcards, query_wildcards])
 
 # RATINGS
 
