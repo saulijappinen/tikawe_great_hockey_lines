@@ -19,7 +19,7 @@ app.secret_key = config.secret_key # for session
 # globals
 
 ## used in index
-nhl_teams = ["Lightning ⚡️", "Panther 🐆", "Duck 🦆", "Penquin 🐧"]
+nhl_teams = ["Lightning ⚡️", "Panther 🐆", "Duck 🦆", "Penquin 🐧", "Leaf 🍁", "Shark 🦈" "Star ⭐️", "Devil 😈"]
 input_random_team = choice(nhl_teams)
 
 # pages
