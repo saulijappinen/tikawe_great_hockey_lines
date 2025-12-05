@@ -5,27 +5,36 @@
 </head>
 
 <body>
+
+  {% for message in get_flashed_messages() %}
+  <p>
+    <b>{{ message }}</b>
+  </p>
+  {% endfor %}
+
   <form action="/update_item" method="post"> <!--insert values from the current item to every section!-->
     <p>
       <h3>Insert name of the line</h3>
-      <input type="text" name="linename" value="{{ item_page.linename }}" size="100" maxlength="100" required />
+      <input type="text" name="linename" value="{{ item_page.linename }}" size="{{ INPUT_LENGTH_LIMITS.item_input }}" maxlength="{{ INPUT_LENGTH_LIMITS.item_input }}"required />
     </p>
 
+    <h3>The players</h3>
     <p>
       <h4>Insert player in left wing (LW)</h4>
-      <input type="text" name="player_lw" value="{{ item_page.player_lw }}" size="50" maxlength="100" required />
+      <input type="text" name="player_lw" value="{{ item_page.player_lw }}" size="{{ INPUT_LENGTH_LIMITS.item_input }}" maxlength="{{ INPUT_LENGTH_LIMITS.item_input }}"required />
     </p>
 
     <p>
       <h4>Insert player in center (C)</h4>
-      <input type="text" name="player_c" value="{{ item_page.player_c }}" size="50" maxlength="100" required />
+      <input type="text" name="player_c" value="{{ item_page.player_c }}" size="{{ INPUT_LENGTH_LIMITS.item_input }}" maxlength="{{ INPUT_LENGTH_LIMITS.item_input }}" required />
     </p>
 
     <p>
       <h4>Insert player in right wing (RW)</h4>
-      <input type="text" name="player_rw" value="{{ item_page.player_rw }}" size="50" maxlength="100" required />
+      <input type="text" name="player_rw" value="{{ item_page.player_rw }}" size="{{ INPUT_LENGTH_LIMITS.item_input }}" maxlength="{{ INPUT_LENGTH_LIMITS.item_input }}" required />
     </p>
 
+    <h3>Insert additional information about the line</h3>
     <!-- attributes --> 
     {% for class_name, options in all_classes.items() %}
     <fieldset>

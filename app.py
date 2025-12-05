@@ -15,6 +15,10 @@ import users
 # BEGIN APP
 app = Flask(__name__)
 app.secret_key = config.secret_key # for session
+
+@app.context_processor #NOTE: this handles to templates but still need to use in app.py as well so config.INPUTLENGHTLIMITS below!
+def inject_globals():
+    return {'INPUT_LENGTH_LIMITS': config.INPUT_LENGTH_LIMITS}
  
 # globals
 
@@ -164,13 +168,13 @@ def create_item():
     input_player_c = request.form["player_c"]
     input_player_rw = request.form["player_rw"]
 
-    if not input_linename or len(input_linename) > 100:
+    if not input_linename or len(input_player_lw) > config.INPUT_LENGTH_LIMITS['item_input']:
         abort(403)
-    if not input_player_lw or len(input_player_lw) > 100:
+    if not input_player_lw or len(input_player_lw) > config.INPUT_LENGTH_LIMITS['item_input']:
         abort(403)
-    if not input_player_c or len(input_player_c) > 100:
+    if not input_player_c or len(input_player_c) > config.INPUT_LENGTH_LIMITS['item_input']:
         abort(403)
-    if not input_player_rw or len(input_player_rw) > 100:
+    if not input_player_rw or len(input_player_rw) > config.INPUT_LENGTH_LIMITS['item_input']:
         abort(403)
     
     # classes part
@@ -231,6 +235,15 @@ def update_item():
     input_player_c = request.form["player_c"]
     input_player_rw = request.form["player_rw"]
 
+    if not input_linename or len(input_player_lw) > config.INPUT_LENGTH_LIMITS['item_input']:
+        abort(403)
+    if not input_player_lw or len(input_player_lw) > config.INPUT_LENGTH_LIMITS['item_input']:
+        abort(403)
+    if not input_player_c or len(input_player_c) > config.INPUT_LENGTH_LIMITS['item_input']:
+        abort(403)
+    if not input_player_rw or len(input_player_rw) > config.INPUT_LENGTH_LIMITS['item_input']:
+        abort(403)
+
     # classes
     all_classes = items.get_all_classes()
 
@@ -246,6 +259,11 @@ def update_item():
                 abort(403)
             input_classes.append((class_title, class_value))
             print(class_title, class_value)
+
+    if len(input_classes) < 2: #TODO: check both class_titles separately
+        print("edit mode with shorter than 2")
+        flash("ERROR: Need to insert at least one league and nationality!")
+        return redirect("/edit_item/" + str(item_id))
 
     # write to db / user_id and line id not altered!!
     items.update_item(input_linename, input_player_lw, input_player_c, input_player_rw, item_id, input_classes)
