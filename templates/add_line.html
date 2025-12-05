@@ -5,56 +5,33 @@
 </head>
 
 <body>
+
+  {% for message in get_flashed_messages() %}
+  <p>
+    <b>{{ message }}</b>
+  </p>
+  {% endfor %}
+
   <form action="/create_line" method="post">
     <p>
       <h3>Insert name of the line</h3>
-      <input type="text" name="linename" size="100" required/>
+      <input type="text" name="linename" size="100" maxlength="100" required />
     </p>
 
     <p>
       <h4>Insert player in left wing (LW)</h4>
-      <input type="text" name="player_lw" size="50" required/>
+      <input type="text" name="player_lw" size="50" maxlength="100" required/>
     </p>
 
     <p>
       <h4>Insert player in center (C)</h4>
-      <input type="text" name="player_c" size="50" required/>
+      <input type="text" name="player_c" size="50" maxlength="100" required/>
     </p>
 
     <p>
       <h4>Insert player in right wing (RW)</h4>
-      <input type="text" name="player_rw" size="50" required/>
+      <input type="text" name="player_rw" size="50" maxlength="100" required/>
     </p>
-
-    <!-- attributes --> 
-    <!--
-    <p>
-      <h4>When was the line at its peak (decade)</h4>
-      <input type="radio" name="decade" value="1980s" /> 1980s
-      <input type="radio" name="decade" value="1990s" /> 1990s
-      <input type="radio" name="decade" value="2000s" /> 2000s
-      <input type="radio" name="decade" value="2010s" /> 2010s
-      <input type="radio" name="decade" value="2020s" /> 2020s
-    </p>
-    
-    <p>Insert league:</p>
-    <p>
-      <input type="checkbox" name="league" value="nhl" /> NHL team
-      <input type="checkbox" name="league" value="national" /> National team
-      <input type="checkbox" name="league" value="liga" /> Finnish Liga
-      <input type="checkbox" name="league" value="shl" /> Swedish SHL
-      <input type="checkbox" name="league" value="other" /> Other 
-    </p>
-
-    <p>Insert nationalities of the players:</p>
-    <p>
-      <input type="checkbox" name="nationality" value="can" /> Canada 🇨🇦
-      <input type="checkbox" name="nationality" value="usa" /> USA 🇺🇸
-      <input type="checkbox" name="nationality" value="fin" /> Finland 🇫🇮
-      <input type="checkbox" name="nationality" value="swe" /> Sweden 🇸🇪
-      <input type="checkbox" name="nationality" value="other" /> Other 🌎
-    </p>
-     -->
 
     {% for class_name, options in classes.items() %}
     <fieldset>
