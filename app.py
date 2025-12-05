@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session, abort
+from flask import redirect, render_template, request, session, abort, flash
 
 # standard libraries come to any venv(?) so random works!
 from random import choice
@@ -262,20 +262,18 @@ def create_user():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "ERROR: inserted passwords not equal!"
+        flash("ERROR: inserted passwords not equal!")
+        return redirect("/register")
 
     try:
         users.create_user(username, password1) # hash created inside function
     except sqlite3.IntegrityError:
-        return "ERROR: user already exists!"
+        flash("ERROR: user already exists!")
+        return redirect("/register")
+    
+    flash(f"Congratulations {username}! Please login next.")
 
-    return f'''
-        <h2>Congratulations {username}!</h2>
-        <p>
-        You are now a member of our community!<br>
-        Please, <a href="/login">log in</a> next.
-        </p>
-        '''
+    return redirect("/login")
 
 @app.route("/login", methods=["GET", "POST"]) # both methods!
 def login():
@@ -296,7 +294,8 @@ def login():
             print(f"session token is {session["csrf_token"]}") 
             return redirect("/")
         else:
-            return 'Error: wrong username or password! Please try <a href="/login">logging in</a> again.'
+            flash("Error: wrong username or password!")
+            return(redirect("/login"))
 
 @app.route("/logout")
 def logout():
