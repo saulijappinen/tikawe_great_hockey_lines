@@ -19,7 +19,7 @@ app.secret_key = config.secret_key # for session
 # globals
 
 ## used in index
-nhl_teams = ["Lightning ⚡️", "Panther 🐆", "Duck 🦆", "Penquin 🐧", "Leaf 🍁", "Shark 🦈" "Star ⭐️", "Devil 😈"]
+nhl_teams = ["Lightning ⚡️", "Panther 🐆", "Duck 🦆", "Penquin 🐧", "Leaf 🍁", "Shark 🦈", "Star ⭐️", "Devil 😈"]
 input_random_team = choice(nhl_teams)
 
 # pages
@@ -157,15 +157,23 @@ def create_item():
     require_login()
     check_csrf()
 
-    # user info
     user_id = session["user_id"]
-    # main info
+    
     input_linename = request.form["linename"]
     input_player_lw = request.form["player_lw"]
     input_player_c = request.form["player_c"]
     input_player_rw = request.form["player_rw"]
-    #input_decade = request.form["decade"]
 
+    if not input_linename or len(input_linename) > 100:
+        abort(403)
+    if not input_player_lw or len(input_player_lw) > 100:
+        abort(403)
+    if not input_player_c or len(input_player_c) > 100:
+        abort(403)
+    if not input_player_rw or len(input_player_rw) > 100:
+        abort(403)
+    
+    # classes part
     all_classes = items.get_all_classes()
 
     input_classes = []
@@ -179,6 +187,11 @@ def create_item():
                 abort(403)
             input_classes.append((class_title, class_value))
             print(class_title, class_value)
+          
+    if len(input_classes) < 2:
+        print("tänne mentiin")
+        flash("ERROR: Need to insert at least one league and nationality!")
+        return redirect("/add_line")
 
     # write to db AND return the id! not cool but works.. 
     item_id = items.add_item(input_linename, input_player_lw, input_player_c, input_player_rw, user_id, input_classes)

@@ -8,22 +8,22 @@
   <form action="/update_item" method="post"> <!--insert values from the current item to every section!-->
     <p>
       <h3>Insert name of the line</h3>
-      <input type="text" name="linename" value="{{ item_page.linename }}" size="80" required />
+      <input type="text" name="linename" value="{{ item_page.linename }}" size="100" maxlength="100" required />
     </p>
 
     <p>
       <h4>Insert player in left wing (LW)</h4>
-      <input type="text" name="player_lw" value="{{ item_page.player_lw }}" size="50" required />
+      <input type="text" name="player_lw" value="{{ item_page.player_lw }}" size="50" maxlength="100" required />
     </p>
 
     <p>
       <h4>Insert player in center (C)</h4>
-      <input type="text" name="player_c" value="{{ item_page.player_c }}" size="50" required />
+      <input type="text" name="player_c" value="{{ item_page.player_c }}" size="50" maxlength="100" required />
     </p>
 
     <p>
       <h4>Insert player in right wing (RW)</h4>
-      <input type="text" name="player_rw" value="{{ item_page.player_rw }}" size="50" required />
+      <input type="text" name="player_rw" value="{{ item_page.player_rw }}" size="50" maxlength="100" required />
     </p>
 
     <!-- attributes --> 

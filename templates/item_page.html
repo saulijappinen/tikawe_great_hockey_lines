@@ -24,9 +24,9 @@
     {% for class_title, value in classes_page.items() %}
     <h3>
       {% if class_title == "league" %}
-        {{ class_title }} 🏒 
+        The line played in the following league(s) 🏒 
       {% else %}
-        {{ class_title }} 🌍
+        The following nationalities are represented 🌍
       {% endif %}
     </h3>
     <ul>
@@ -36,8 +36,12 @@
             {{ val }} 🇫🇮 
           {% elif val == "sweden" %}
             {{ val }} 🇸🇪
+          {% elif val == "canada" %}
+            {{ val }} 🇨🇦
+          {% elif val == "usa" %}
+            {{ val }} 🇺🇸
           {% else %}
-            {{ val }}
+            {{ val }} 
           {% endif %}
         </li>
       {% endfor %}
