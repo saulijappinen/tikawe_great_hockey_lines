@@ -188,7 +188,7 @@ def create_item():
             input_classes.append((class_title, class_value))
             print(class_title, class_value)
           
-    if len(input_classes) < 2:
+    if len(input_classes) < 2: #TODO: check both class_titles separately
         print("tänne mentiin")
         flash("ERROR: Need to insert at least one league and nationality!")
         return redirect("/add_line")
@@ -299,7 +299,7 @@ def create_user():
 @app.route("/login", methods=["GET", "POST"]) # both methods!
 def login():
     if request.method == "GET": 
-        return render_template("login.html")
+        return render_template("login.html", filled={})
          
     if request.method == "POST": 
         username = request.form["username"]
@@ -312,11 +312,12 @@ def login():
             session["user_id"] = user_id
             session["username"] = username
             session["csrf_token"] = token_hex(16) # one token for one sign in
-            print(f"session token is {session["csrf_token"]}") 
+            print(f"session token is {session["csrf_token"]}")
             return redirect("/")
         else:
             flash("Error: wrong username or password!")
-            return(redirect("/login"))
+            filled = {"username": username}
+            return render_template("login.html", filled=filled)
 
 @app.route("/logout")
 def logout():
