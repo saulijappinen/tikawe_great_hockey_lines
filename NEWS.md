@@ -1,3 +1,20 @@
+# Release v5 / 5.12.25
+
+*Bugfixes, classes now working better, flash msgs for user stuff*
+
+Notes
+
++ key new features
+  + selected classes now showing more nicely on item page
+  + flash msgs for user registering, login errors
+  
+* fixed bugs
+  * chosen classes now showing in edit
+
++ known bugs in current functionalities
+  + no requirement for selecting at least one class 
+  
+
 # Release v4.0 / 27.11.25
 
 *Classes added (edit not yet working completely) and ratings possible*

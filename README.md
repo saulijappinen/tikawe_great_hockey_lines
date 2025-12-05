@@ -47,13 +47,13 @@ install `flask` library and dependencies to your virtual environment
 $ pip install flask
 ```
 
-Create sqlite database from schemas file (and see the tables included)
+Create sqlite database and initialize content from .sql files (and see the tables included)
 
 ```
 $ sqlite3 database.db < sql/schemas.sql
 $ sqlite3 database.db < sql/init_classes.sql
-$ sqlite3 .tables 
-$ sqlite3 .quit
+$ sqlite3 .tables # see tables
+$ sqlite3 .quit # close db
 ```
 
 Run the app
@@ -62,23 +62,19 @@ Run the app
 $ flask run
 ```
 
+*Hints*
+
 You can find possible lines to be added for example in: 
 
 <https://thehockeywriters.com/top-10-nhl-lines/>
 
-
-Additional information
-
-* built on the following
-  * Python 3.13.7 
+or add the famous Tupu-Hupu-Lupu line from '95!
 
 
 
 ------
 
 ## Repository structure
-
-(in progress)
 
 `/`
 
@@ -101,6 +97,7 @@ Documentation files:
 
 * sql files for creating tables to database
 
-## Other info
+## Additional information
 
-TBA
+* built on the following
+  * Python 3.13.7 
