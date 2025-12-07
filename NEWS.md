@@ -1,4 +1,4 @@
-# Release v5.5 / 5.12.25
+# Release v5.5 / 7.12.25
 
 *Small improvements*
 
