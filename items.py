@@ -22,28 +22,26 @@ def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
 
 # get functions 
 def get_all_items(): # for displaying all
-    print("running get_all_items() function")
-    # sql = """SELECT items.id, items.title, users.id user_id, users.username,
-    #                 COUNT(bids.id) bid_count
-    #          FROM items JOIN users ON items.user_id = users.id
-    #                     LEFT JOIN bids ON items.id = bids.item_id
-    #          GROUP BY items.id
-    #          ORDER BY items.id DESC"""
 
     return db_module.query(
         """
-        SELECT id, 
-        linename, 
-        player_lw, 
-        player_c, 
-        player_rw, 
-        user_id, 
-        modification_time  
+        SELECT i.id, 
+        i.linename, 
+        i.player_lw, 
+        i.player_c, 
+        i.player_rw, 
+        i.user_id, 
+        i.modification_time,
+        u.username  
         
-        FROM ITEMS 
-        ORDER BY ID DESC
+        FROM ITEMS as i
+        
+        LEFT JOIN USERS as u
+            on i.user_id = u.id
+
+        ORDER BY i.ID DESC
         """
-        ) # in descending order
+        ) 
 
 
 def get_one_item(item_id): # for displaying one
