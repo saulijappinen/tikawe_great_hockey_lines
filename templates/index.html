@@ -30,8 +30,11 @@
   <h2>Lines currently in the database:</h2>
   <br>
   <ul>
-    {% for it in items_displayed %}
-    <li><a href="/item/{{ it.id }}">{{  it.linename  }}</a>, added by user id: {{ it.user_id  }}</li>
+    {% for item in items_displayed %}
+      <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
+      Added by: <a href="/user/{{ item.user_id }}">{{ item.username }}</a> <br />
+      Last modified {{ item.modification_time }} <br> 
+      <br> 
     {% endfor %}
   </ul>
 
@@ -45,32 +48,9 @@
   <p>
     <a href="/login">Log in</a><br>
     <a href="/register">Register as new user</a>
-     <!-- <a href="/logout">Kirjaudu ulos</a>-->
   </p>
 
-
-
   {% endif %}
-
-  <!-- Always show this -->
-
-
-  <!-- 
-  <h3>
-    Please enter your credentials or register as a new user:
-  </h3>
-  <form action="/login" method="post">
-    <p>
-      Tunnus: <br />
-      <input type="text" name="username" />
-    </p>
-    <p>
-      Salasana: <br />
-      <input type="password" name="password" />
-    </p>
-    <input type="submit" value="Kirjaudu" />
-  </form>
-  -->
   
 </body>
 
