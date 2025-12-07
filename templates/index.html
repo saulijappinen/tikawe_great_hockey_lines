@@ -1,11 +1,11 @@
-<html>
+{% extends "base_layout.html" %}
 
-<head>
-  <title>Index page</title>
-</head>
+{% block title %}Index page{% endblock %}
+
+{% block content %}
 
 <body>
-  <h1>Welcome to the world of great ice hockey lines 🏒 🥅</h1>
+  <h2>Welcome to the world of great ice hockey lines 🏒 🥅</h2>
   
   {% if session.username %} <!-- Logged in -->
   
@@ -29,14 +29,14 @@
 
   <h2>Lines currently in the database:</h2>
   <br>
-  <ul>
-    {% for item in items_displayed %}
-      <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
-      Added by: <a href="/user/{{ item.user_id }}">{{ item.username }}</a> <br />
-      Last modified {{ item.modification_time }} <br> 
-      <br> 
-    {% endfor %}
-  </ul>
+  {% for item in items_displayed %}
+  <div class="item">
+    <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
+    Added by: <a href="/user/{{ item.user_id }}">{{ item.username }}</a> <br />
+    Last modified {{ item.modification_time }} <br> 
+    <br> 
+  </div>
+  {% endfor %}
 
   {% else %} <!-- Not logged in> -->
 
@@ -54,4 +54,4 @@
   
 </body>
 
-</html>
+{% endblock %}
