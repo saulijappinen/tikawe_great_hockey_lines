@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<html>
+{% extends "base_layout.html" %}
 
-<head>
-  <title>Login</title>
-</head>
+{% block title %} User log in {% endblock %}
 
-<body>
+{% block content %} <!-- coming from base_layout -->
+
+<h2>Log in to our community</h2>
+
   {% if session.username %}
+  
   <p>
-    You are signed in as {{ session.username }}
+    You are already signed in as {{ session.username }}. Log out to use another user name.
   </p>
-  <p>
-    <a href="/logout">Log out from account</a>
-  </p>
-  {% else %}
 
-  {% for message in get_flashed_messages() %}
-  <p>
-    <b>{{ message }}</b>
-  </p>
-  {% endfor %}
+  {% else %}
 
   <form action="/login" method="post">
     <p>
@@ -33,6 +26,5 @@
     <input type="submit" value="Sign in" />
   </form>
   {% endif %}
-</body>
 
-</html>
+{% endblock %}

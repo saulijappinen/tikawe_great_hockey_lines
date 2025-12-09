@@ -1,27 +1,25 @@
-<html>
+{% extends "base_layout.html" %}
 
-<head>
-  <title>User with id {{ user.id }}</title>
-</head>
+{% block title %} User with id {{ user.id }} {% endblock %}
 
-<body>
-  <h1>Selected user: {{ user.username }}</h1>
+{% block content %} <!-- coming from base_layout -->
+
+
+  <h2>Selected user: {{ user.username }}</h2>
+
+  <h3>User info ℹ️</h3>
 
   <p>{{ user.username }} (id {{ user.id }}) has been a member of our community since {{ user.creation_time }}. </p>
-  <p>{{ user.username }} has created {{ items | count }} lines. </p>
+  <p>{{ user.username }} has created {{ items | count }} line(s). </p>
 
   <h3>Lines added by the user</h3>
-  <ul>
-    {% for it in items %}
-    <li><a href="/item/{{ it.id }}">{{  it.linename  }}</a></li>
-    {% endfor %}
-  </ul>
 
+  {% for item in items %}
+  <div class="item">
+    <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
+    Added by: <a href="/user/{{ item.user_id }}">{{ item.username }}</a> <br />
+    Last modified {{ item.modification_time }} <br> 
+  </div>
+{% endfor %}
 
-  <p>
-  <a href="/">Back to main page</a>
-  </p>
-
-</body>
-
-</html>
+{% endblock %}
