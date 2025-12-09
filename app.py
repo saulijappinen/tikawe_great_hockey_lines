@@ -125,6 +125,7 @@ def delete_item(item_id):
         check_csrf() # only done when posting
         if "delete" in request.form:
             items.delete_item(item_id)
+            flash("A line got deleted from database!")
             return redirect("/")
         else:
             return redirect("/item/" + str(item_id))
