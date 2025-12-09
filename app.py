@@ -191,10 +191,12 @@ def create_item():
             if class_value not in all_classes[class_title]:
                 abort(403)
             input_classes.append((class_title, class_value))
-            print(class_title, class_value)
-          
-    if len(input_classes) < 2: #TODO: check both class_titles separately
-        print("tänne mentiin")
+    
+    # only for checking!
+
+    keys = {item[0] for item in input_classes} #   set, only unique!
+
+    if 'league' not in keys or 'nationality' not in keys: #len(keys) < 2
         flash("ERROR: Need to insert at least one league and nationality!")
         return redirect("/add_line")
 
@@ -204,15 +206,6 @@ def create_item():
     print("item id is", item_id)
 
     return redirect("/item/" + str(item_id))
-
-    # ret to result page
-    # return render_template("result.html", 
-    #                        linename=input_linename,
-    #                        player_lw = input_player_lw, 
-    #                        player_c = input_player_c, 
-    #                        player_rw = input_player_rw
-    #                        #decade=input_decade, nationalities = input_nationality,league = input_league
-    #                        )
 
 @app.route("/update_item", methods=["POST"]) # add_line posts to this
 def update_item():
@@ -259,10 +252,12 @@ def update_item():
             if class_value not in all_classes[class_title]:
                 abort(403)
             input_classes.append((class_title, class_value))
-            print(class_title, class_value)
 
-    if len(input_classes) < 2: #TODO: check both class_titles separately
-        print("edit mode with shorter than 2")
+    # only for checking!
+    
+    keys = {item[0] for item in input_classes} #   set, only unique!
+
+    if 'league' not in keys or 'nationality' not in keys: #len(keys) < 2
         flash("ERROR: Need to insert at least one league and nationality!")
         return redirect("/edit_item/" + str(item_id))
 
