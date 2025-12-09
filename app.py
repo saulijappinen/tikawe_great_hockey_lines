@@ -145,8 +145,8 @@ def find_item():
         search_results = []
     return render_template("item_find.html", query=query, results=search_results)
 
-@app.route("/add_line") # just the page, create_line adds to data base
-def add_line():
+@app.route("/add_item") # just the page, create_item adds to data base
+def add_item():
 
     require_login()
 
@@ -154,9 +154,9 @@ def add_line():
 
     possible_classes = items.get_all_classes()
 
-    return render_template("add_line.html", classes=possible_classes)
+    return render_template("item_add.html", classes=possible_classes)
 
-@app.route("/create_line", methods=["POST"]) # add_line posts to this
+@app.route("/create_item", methods=["POST"]) # item_add posts to this
 def create_item():
 
     require_login()
@@ -198,7 +198,7 @@ def create_item():
 
     if 'league' not in keys or 'nationality' not in keys: #len(keys) < 2
         flash("ERROR: Need to insert at least one league and nationality!")
-        return redirect("/add_line")
+        return redirect("/add_item")
 
     # write to db AND return the id! not cool but works.. 
     item_id = items.add_item(input_linename, input_player_lw, input_player_c, input_player_rw, user_id, input_classes)
@@ -207,7 +207,7 @@ def create_item():
 
     return redirect("/item/" + str(item_id))
 
-@app.route("/update_item", methods=["POST"]) # add_line posts to this
+@app.route("/update_item", methods=["POST"]) 
 def update_item():
 
     require_login()
