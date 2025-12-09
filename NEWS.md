@@ -1,3 +1,21 @@
+# Release v6 / 9.12.25
+
+*First apprearance update to all pages*
+
+Notes
+
+* key new features
+  * base layout in use in templates
+  * some minor upates to pages: item_page ratings etc. 
+  
+* fixed bugs
+  * user pages now require login 
+
++ known bugs in current functionalities
+  + class number check only checks amount of inputs, not that both league and nationality have been inserted
+
+
+
 # Release v5.5 / 7.12.25
 
 *Small improvements*
