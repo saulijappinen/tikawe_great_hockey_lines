@@ -7,15 +7,21 @@
 */
 
 .item {
-  border: 2px solid black;
+  border: 1px solid black;
   margin: 1em;
   padding: 0.2em 0.5em;  
 }
 
 .info {
-  border: 2px solid black;
+  border: 1px solid black;
   margin: 1em;
   padding: 0.5em;
   background-color: blue;
   color: white;
+}
+
+hr { /*hr tag, not class!!*/
+  border: none;
+  height: 2px;
+  background-color: grey;
 }
