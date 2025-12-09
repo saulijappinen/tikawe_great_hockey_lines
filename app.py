@@ -347,6 +347,8 @@ def logout():
 @app.route("/user/<int:user_id>") 
 def show_user(user_id):
 
+    require_login()
+
     user_info = users.get_user_info(user_id)
 
     if not user_info: # function returns None if no user
