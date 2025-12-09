@@ -1,40 +1,35 @@
-<html>
+{% extends "base_layout.html" %}
 
-<head>
-  <title>Add your favorite forward line</title>
-</head>
+{% block title %} Add your favorite forward line {% endblock %}
 
-<body>
+{% block content %} <!-- coming from base_layout -->
 
-  {% for message in get_flashed_messages() %}
-  <p>
-    <b>{{ message }}</b>
-  </p>
-  {% endfor %}
+ <h2>Insert your line to database</h2>
 
   <form action="/create_line" method="post">
     <p>
-      <h3>Insert name of the line</h3>
+      <h3>Name of the line</h3>
       <input type="text" name="linename" size="{{ INPUT_LENGTH_LIMITS.item_input }}" maxlength="{{ INPUT_LENGTH_LIMITS.item_input }}" required />
     </p>
 
     <h3>The players</h3>
     <p>
-      <h4>Insert player in left wing (LW)</h4>
+      <h4>Player in left wing (LW)</h4>
       <input type="text" name="player_lw" size="{{ INPUT_LENGTH_LIMITS.item_input }}" maxlength="{{ INPUT_LENGTH_LIMITS.item_input }}"required/>
     </p>
 
     <p>
-      <h4>Insert player in center (C)</h4>
+      <h4>Player in center (C)</h4>
       <input type="text" name="player_c" size="{{ INPUT_LENGTH_LIMITS.item_input }}" maxlength="{{ INPUT_LENGTH_LIMITS.item_input }}" required/>
     </p>
 
     <p>
-      <h4>Insert player in right wing (RW)</h4>
+      <h4>Player in right wing (RW)</h4>
       <input type="text" name="player_rw" size="{{ INPUT_LENGTH_LIMITS.item_input }}" maxlength="{{ INPUT_LENGTH_LIMITS.item_input }}" required/>
     </p>
 
-    <h3>Insert additional information about the line</h3>
+    <h3>Additional information</h3>
+
     {% for class_name, options in classes.items() %}
     <fieldset>
         <legend>{{ class_name }}</legend>
@@ -51,6 +46,5 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" /> <!--security-->
     <input type="submit" value="Submit your line" />
   </form>
-</body>
 
-</html>
+  {% endblock %}

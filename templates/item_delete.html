@@ -1,16 +1,17 @@
-<html>
+{% extends "base_layout.html" %}
 
-<head>
-  <title>Delete line</title>
-</head>
+{% block title %} Remove line {% endblock %}
 
-<body>
-    <p>Are you sure you want to delete {{ item.linename }}?</p>
-    <form action="/delete_item/{{ item.id }}" method="post">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" /> <!--security-->
-        <input type="submit" name="delete" value="Delete, I am sure">
-        <input type="submit" name="back" value="Go back">
-    </form>
-</body> 
+{% block content %} <!-- coming from base_layout -->
 
-</html>
+<h2>Remove line from database</h2>
+
+<p>Are you sure you want to delete the line <b>{{ item.linename }}</b>?</p>
+
+<form action="/delete_item/{{ item.id }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" /> <!--security-->
+    <input type="submit" name="delete" value="Delete, I am sure">
+    <input type="submit" name="back" value="Go back">
+</form>
+
+{% endblock %}

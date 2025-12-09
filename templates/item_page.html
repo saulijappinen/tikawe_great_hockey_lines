@@ -1,34 +1,44 @@
-<html>
+{% extends "base_layout.html" %}
 
-<head>
-  <title>{{ item_page.linename }}</title>
-</head>
+{% block title %} {{ item_page.linename }} {% endblock %}
 
-<body>
-  <h1>Selected line: {{ item_page.linename }}</h1>
+{% block content %} <!-- coming from base_layout -->
+
+
+  <h2>Selected line: {{ item_page.linename }}</h2>
+
+  {% if session.user_id == item_page.user_id %} <!-- only if the creator is on the page-->
+
+  <p>
+    <a href="/edit_item/{{ item_page.id }}">Edit your line</a> |
+    <a href="/delete_item/{{ item_page.id }}">Delete your line</a>
+  </p>
+
+  {% endif %}
+
+  <h3>Basic info ℹ️</h3>
 
   <p>This line is id <b>{{ item_page.id }}</b>. 
     It is created by <a href="/user/{{ item_page.user_id }}">{{  item_page.username  }}</a>. 
     Line was last edited on {{ item_page.modification_time }}.
   </p>
-  <br>
-  <h2>The players</h2>
+
+  <h3>The players ⛸</h3>
   <p>Starting in the left wing, please welcome <b>{{ item_page.player_lw }}</b></p>
   <p>In the middle, please welcome <b>{{ item_page.player_c }}</b></p>
   <p>And last but not least in the right wing, please welcome <b>{{ item_page.player_rw }}</b></p>
-  <br>
 
-  <h2>Additional information</h2>
+  <h3>Additional information 🏒 🌍</h3> 
 
   {% if classes_page %}
     {% for class_title, value in classes_page.items() %}
-    <h3>
+    <h4>
       {% if class_title == "league" %}
-        The line played in the following league(s) 🏒 
+        The line played in the following league(s) 
       {% else %}
-        The following nationalities are represented 🌍
+        The following nationalities are represented 
       {% endif %}
-    </h3>
+    </h4>
     <ul>
       {% for val in value %}
         <li>
@@ -91,22 +101,25 @@
   {% endif %}
   -->
 
-  <h2>Line ratings</h2>
+  <h3>Line ratings 🔥</h3> 
 
-  <h3>Given ratings</h3>
+  <h4>Given ratings</h4>
 
-  <br>
+  {% if rating_page|length == 0 %}
+    <p>No ratings given yet.</p>
+
+  {% else %}
   <ul>
     {% for rate in rating_page %}
-    <li>Rating {{ rate.rating }} given by user {{ rate.username  }} (id {{ rate.user_id }}) at {{ rate.rating_time  }}</li>
+    <li>Rating {{ rate.rating }} given by user <a href="/user/{{ rate.user_id }}">{{ rate.username }}</a>  at {{ rate.rating_time  }}</li>
     {% endfor %}
   </ul>
+  {% endif %}
 
-
-  <!-- only if not the creator -->
+  <!-- rating can only be given if not the creator -->
   {% if session.user_id != item_page.user_id %}
 
-  <h3>Add a rating</h3>
+  <h4>Rate the line</h4>
   <form action="/create_rating" method="post">
     <input type="radio" name="rating" value="1" /> 🔥
     <input type="radio" name="rating" value="2" /> 🔥🔥
@@ -116,27 +129,12 @@
     <input type="hidden" name="item_id" value="{{ item_page.id }}">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="hidden" name="item_id" value="{{ item_page.id }}" /> <!-- needed for database write-->
+    <br>
+    <br>
     <input type="submit" value="Evaluate the line" />
   </form>
 
   {% endif %}
 
-  {% if session.user_id == item_page.user_id %} <!-- only if the creator is on the page-->
 
-  <p>
-    <a href="/edit_item/{{ item_page.id }}">Edit your line</a>
-    <br>
-    <br>
-    <a href="/delete_item/{{ item_page.id }}">Delete your line</a>
- 
-  </p>
-
-  {% endif %}
-
-  <p>
-  <a href="/">Back to main page</a>
-  </p>
-
-</body>
-
-</html>
+{% endblock %}

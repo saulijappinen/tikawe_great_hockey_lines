@@ -1,13 +1,12 @@
-<html>
+{% extends "base_layout.html" %}
 
-<head>
-  <title>Find lines</title>
-</head>
+{% block title %} User log in {% endblock %}
 
-<body>
+{% block content %} <!-- coming from base_layout -->
+
     <h2>Find lines in the database</h2>
 
-    <p>You can find lines that contain the search word(s) in the name of the line. The search <b>is not case sensitive</b>.</p>
+    <p>You can find lines that contain the search word(s) either in the name of the line or names of the players. The search is <b>not</b> case sensitive.</p>
 
     <form action="/find_item" method="get">
         <p>
@@ -18,20 +17,17 @@
     </form>
 
 {% if query %} <!-- if query exists!!-->
-<h2>The following lines were found</h2>
+<h3>The following lines were found</h3>
 
-<ul>
-  {% for item in results %}
-  <li><a href="/item/{{ item.id }}">{{ item.linename }}</a></li>
-  {% endfor %}
-</ul>
+{% for item in results %}
+<div class="item">
+    <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
+    Added by: <a href="/user/{{ item.user_id }}">{{ item.username }}</a> <br />
+    Last modified {{ item.modification_time }} <br> 
+  </div>
+{% endfor %}
 
 {% endif %}
 
-  <p>
-  <a href="/">Back to main page</a>
-  </p>
+{% endblock %}
 
-</body> 
-
-</html>
