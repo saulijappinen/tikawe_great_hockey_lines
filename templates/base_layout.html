@@ -6,28 +6,23 @@
   <link rel="stylesheet" href="/static/main.css">
 </head>
 
-<!--
+
 <body>
-  <h1>Great hockey lines</h1>
-
+  <h1>Welcome to the world of great ice hockey lines 🏒 🥅</h1>
+    
   {% if session.user_id %}
-  <p>
-    Olet kirjautunut nimellä <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
-  </p>
-  {% endif %}
+    <a href="/">Front page</a> |
+    <a href="/add_line">Create new line</a> |
+    <a href="/find_item">Search database</a> |
+    <a href="/logout">Log out</a> 
 
-  <p>
-    <a href="/">Etusivu</a> |
-    <a href="/find_item">Etsi ilmoitus</a> |
-  {% if session.user_id %}
-    <a href="/new_item">Uusi ilmoitus</a> |
-    <a href="/logout">Kirjaudu ulos</a>
-  {% else %}
-    <a href="/login">Kirjaudu sisään</a> |
-    <a href="/register">Luo tunnus</a>
-  {% endif %}
-  </p>
+    <p>
+    Time to get fanatic, <a href="/user/{{ session.user_id }}"><b>{{ session.username }}</b></a>! ⚡️ <br>
+    Your id number is {{ session.user_id }}
+    </p>
 
+  {% endif %}
+  
   {% for message in get_flashed_messages() %}
   <div class="info">
     {{ message }}
@@ -38,4 +33,3 @@
 </body>
 
 </html>
--->

@@ -2,35 +2,15 @@
 
 {% block title %}Index page{% endblock %}
 
-{% block content %}
+{% block content %} <!-- coming from base_layout -->
 
-<body>
-  <h2>Welcome to the world of great ice hockey lines 🏒 🥅</h2>
-  
-  {% if session.username %} <!-- Logged in -->
-  
-  <p>
 
-    Time to get fanatic, <b>{{ session.username }}</b>! ⚡️ <br><br>
-    Your id number is {{ session.user_id }}<br>
-    What would you like to do next? <br>
+{% if session.user_id %}
 
-    <a href="/add_line">Create new line</a><br>
-  </p>
+<h2>Lines currently in the database</h2>
 
-  <p>
-    <a href="/find_item">Search the database</a><br>
-  </p>
-  
-  <p>
-    <a href="/logout">Log out</a><br>
-  </p>
-  <br>
-
-  <h2>Lines currently in the database:</h2>
-  <br>
-  {% for item in items_displayed %}
-  <div class="item">
+{% for item in items_displayed %}
+<div class="item">
     <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
     Added by: <a href="/user/{{ item.user_id }}">{{ item.username }}</a> <br />
     Last modified {{ item.modification_time }} <br> 
@@ -38,20 +18,14 @@
   </div>
   {% endfor %}
 
-  {% else %} <!-- Not logged in> -->
-
+{% else %}
   <p>
-
-    Time to get fanatic, <b>you {{ random_team }}</b>!
+  Time to get fanatic, <b>you {{ random_team }}</b>!
+  <br>
+  <br>
+  Please <a href="/login">log in</a> or <a href="/register">register</a> to get started. <br>
   </p>
 
-  <p>
-    <a href="/login">Log in</a><br>
-    <a href="/register">Register as new user</a>
-  </p>
-
-  {% endif %}
-  
-</body>
+{% endif %}
 
 {% endblock %}
