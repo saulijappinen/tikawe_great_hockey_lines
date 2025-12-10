@@ -1,6 +1,6 @@
 from datetime import datetime
 
-import db_module
+import db
 
 # for adding lines AND CLASSES!
 def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
@@ -8,22 +8,22 @@ def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
     # line info to items
     curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
     sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id, modification_time) VALUES (?, ?, ?, ?, ?, ?)"
-    db_module.execute(sql, [linename, player_lw, player_c, player_rw, user_id, curtime]) 
+    db.execute(sql, [linename, player_lw, player_c, player_rw, user_id, curtime]) 
     print(f"Line {linename} added!") # for dev
 
     # classes of the line to classes
-    item_id = db_module.last_insert_id()
+    item_id = db.last_insert_id()
 
     sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
     for class_title, class_value in classes:
-        db_module.execute(sql, [item_id, class_title, class_value])
+        db.execute(sql, [item_id, class_title, class_value])
 
     return item_id # this so that redirect after adding works!!
 
 # get functions 
 def get_all_items(): # for displaying all
 
-    return db_module.query(
+    return db.query(
         """
         SELECT i.id, 
         i.linename, 
@@ -64,7 +64,7 @@ def get_one_item(item_id): # for displaying one
     WHERE i.id =  ?
     """
 
-    res = db_module.query(sql, [item_id]) # extra step so that none is option
+    res = db.query(sql, [item_id]) # extra step so that none is option
 
     return res[0] if res else None
 
@@ -78,30 +78,30 @@ def update_item(linename, player_lw, player_c, player_rw, item_id, classes):
                               player_rw = ?,
                               modification_time = ?
                           WHERE id = ?"""
-    db_module.execute(sql, [linename, player_lw, player_c, player_rw, curtime, item_id])
+    db.execute(sql, [linename, player_lw, player_c, player_rw, curtime, item_id])
     print("update_item() executed")
 
     # CLASSES PART
 
     sql = "DELETE FROM item_classes WHERE item_id = ?"
-    db_module.execute(sql, [item_id])
+    db.execute(sql, [item_id])
 
     sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
     for class_title, class_value in classes:
-        db_module.execute(sql, [item_id, class_title, class_value])
+        db.execute(sql, [item_id, class_title, class_value])
 
 def delete_item(item_id):
 
     # FIRST NEED TO DELETE REFERENCES!!
 
     sql = "DELETE FROM ratings WHERE item_id = ?"
-    db_module.execute(sql, [item_id])
+    db.execute(sql, [item_id])
 
     sql = "DELETE FROM item_classes WHERE item_id = ?"
-    db_module.execute(sql, [item_id])
+    db.execute(sql, [item_id])
 
     sql = "DELETE FROM items WHERE id = ?"
-    db_module.execute(sql, [item_id])
+    db.execute(sql, [item_id])
 
     print(f"{item_id} got deleted.")
 
@@ -127,14 +127,14 @@ def find_items(query):
              or lower(i.player_rw) LIKE ?
              ORDER BY i.id DESC"""
     
-    return db_module.query(sql, [query_wildcards, query_wildcards, query_wildcards, query_wildcards])
+    return db.query(sql, [query_wildcards, query_wildcards, query_wildcards, query_wildcards])
 
 # RATINGS
 
 def add_rating(item_id, user_id, rating):
     curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
     sql = "INSERT INTO ratings (item_id, user_id, rating, rating_time) VALUES (?, ?, ?, ?)"
-    db_module.execute(sql, [item_id, user_id, rating, curtime]) 
+    db.execute(sql, [item_id, user_id, rating, curtime]) 
     print(f"Rating added to item {item_id}!") 
 
 def get_ratings(item_id):    
@@ -154,13 +154,13 @@ def get_ratings(item_id):
     WHERE r.item_id =  ? -- item-id, not rating id!
     ORDER BY r.id DESC
     """ 
-    return db_module.query(sql, [item_id])
+    return db.query(sql, [item_id])
 
 # CLASSES
 
 def get_all_classes():
     sql = "SELECT title, value FROM classes ORDER BY id"
-    result = db_module.query(sql)
+    result = db.query(sql)
 
     classes = {}
     for title, value in result:
@@ -172,4 +172,4 @@ def get_all_classes():
 
 def get_classes_for_item(item_id):
     sql = "SELECT title, value FROM item_classes WHERE item_id = ?"
-    return db_module.query(sql, [item_id])
+    return db.query(sql, [item_id])

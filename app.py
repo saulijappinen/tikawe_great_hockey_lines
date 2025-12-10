@@ -7,7 +7,7 @@ from random import choice
 from  secrets import token_hex
 
 # import python modules from /
-import db_module
+import db
 import config # 
 import items
 import users 
