@@ -17,7 +17,7 @@ def create_user(username, password):
     curtime = datetime.now().replace(microsecond=0)
     sql = "INSERT INTO users (username, password_hash, creation_time) VALUES (?, ?, ?)"
     db.execute(sql, [username, password_hash, curtime])
-    print("user created")
+    #print("user created")
 
 def check_login(username, password): # get_user_name_when_logging_in
     sql = "SELECT id, password_hash FROM users WHERE username = ?"

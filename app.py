@@ -67,8 +67,6 @@ def show_item(item_id):
             grouped_classes[title] = []
         grouped_classes[title].append(entry["value"])
 
-    print(grouped_classes)
-
     return render_template("item_page.html", 
                            item_page=item, 
                            rating_page=rating,
@@ -100,8 +98,6 @@ def edit_item(item_id):
         title = entry["title"]
         if title in selected_classes:
             selected_classes[title].append(entry["value"])
-
-    print("selected classes are: ", selected_classes)
 
     return render_template("item_edit.html", item_page=item, all_classes=all_classes, selected_classes=selected_classes)
 
@@ -138,8 +134,7 @@ def find_item():
     query = request.args.get("query")
     
     if query:
-        print("searching database")
-        search_results = items.find_items(query) # can be many lines!
+        search_results = items.find_items(query) 
     else: # to handle empty search / when coming to page
         query = ""
         search_results = []
@@ -149,8 +144,6 @@ def find_item():
 def add_item():
 
     require_login()
-
-    print(items.get_all_classes())
 
     possible_classes = items.get_all_classes()
 
@@ -202,8 +195,6 @@ def create_item():
 
     # write to db AND return the id! not cool but works.. 
     item_id = items.add_item(input_linename, input_player_lw, input_player_c, input_player_rw, user_id, input_classes)
-
-    print("item id is", item_id)
 
     return redirect("/item/" + str(item_id))
 
@@ -336,7 +327,6 @@ def login():
             session["user_id"] = user_id
             session["username"] = username
             session["csrf_token"] = token_hex(16) # one token for one sign in
-            print(f"session token is {session["csrf_token"]}")
             return redirect("/")
         else:
             flash("Wrong username or password!", "error")

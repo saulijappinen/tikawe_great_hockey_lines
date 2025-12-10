@@ -9,7 +9,7 @@ def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
     curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
     sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id, modification_time) VALUES (?, ?, ?, ?, ?, ?)"
     db.execute(sql, [linename, player_lw, player_c, player_rw, user_id, curtime]) 
-    print(f"Line {linename} added!") # for dev
+    #print(f"Line {linename} added!") # for dev
 
     # classes of the line to classes
     item_id = db.last_insert_id()
@@ -45,7 +45,7 @@ def get_all_items(): # for displaying all
 
 
 def get_one_item(item_id): # for displaying one
-    print("running get_one_item() function")
+
     sql = """
     SELECT i.id 
     , i.linename 
@@ -79,7 +79,7 @@ def update_item(linename, player_lw, player_c, player_rw, item_id, classes):
                               modification_time = ?
                           WHERE id = ?"""
     db.execute(sql, [linename, player_lw, player_c, player_rw, curtime, item_id])
-    print("update_item() executed")
+    #print("update_item() executed")
 
     # CLASSES PART
 
@@ -102,8 +102,6 @@ def delete_item(item_id):
 
     sql = "DELETE FROM items WHERE id = ?"
     db.execute(sql, [item_id])
-
-    print(f"{item_id} got deleted.")
 
 def find_items(query):
     query_wildcards = f"%{query}%" # wildcards possible
@@ -135,7 +133,7 @@ def add_rating(item_id, user_id, rating):
     curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
     sql = "INSERT INTO ratings (item_id, user_id, rating, rating_time) VALUES (?, ?, ?, ?)"
     db.execute(sql, [item_id, user_id, rating, curtime]) 
-    print(f"Rating added to item {item_id}!") 
+    #print(f"Rating added to item {item_id}!") 
 
 def get_ratings(item_id):    
     sql = """
