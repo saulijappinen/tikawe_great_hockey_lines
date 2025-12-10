@@ -1,30 +1,29 @@
 # tikawe_great_hockey_lines
 
-My course project for course `hy-tikawe`: hockey lines app - share your favorite hockey lines!
+My course project for course <a href="https://hy-tikawe.github.io/materiaali/">Tietokannat ja web-ohjelmointi</a> (University of Helsinki).
 
 ## Functionalities of the app
 
-The main idea is to add and browse hockey forward lines. 
+The main idea is to add and browse hockey forward lines.
 
-### Current functionalities
+### Changelog
 
 see `NEWS.md`
 
 
-### Planned functionalities (palautus 1)
+### Current functionalities
 
-* a user can 
-  * create a user account to use the app 
+* a user can
+  * create a user account to use the app
   * log in (and out) of the app
   * add lines and modify or delete the ones he/she has his/herself added
   * see all the lines added
-  * search the lines based on a search word (at least) and a attribute added to the lines (nationality, decade etc.)
-  * add reviews of the lines added (from 1 to 5 pucks/sticks)
-  * browse a user page that shows the lines added by the user (at least) and times when the user has logged in 
-    * if time allows, also shows the ratings given to the lines added by the user 
+  * search the lines based on a search word
+    * search includes line name and player names
+  * add reviews of the lines added (from 1 to 5)
+  * browse a user page that shows the lines added by the user (at least) and other basic info of the user
 
-
-* information included of the lines (at least the following)
+* information included of the lines
   * line and player names (main information)
   * additional attributes (classes)
     * nationalities of the players
@@ -64,7 +63,7 @@ $ flask run
 
 *Hints*
 
-You can find possible lines to be added for example in: 
+You can find possible lines to be added for example in:
 
 <https://thehockeywriters.com/top-10-nhl-lines/>
 
@@ -78,27 +77,32 @@ or add the famous Tupu-Hupu-Lupu line from '95!
 
 `/`
 
-* config.py 
-* app.py 
-* db_module.py
+**modules**
+
+* config.py
+* app.py
+* db.py: database functions
 * items.py: functions related to items (lines)
-* users.py: functions related to users 
+* users.py: functions related to users
 
-Documentation files: 
+**Documentation files**
 
-* news.md: release version notes 
-* log.md: own notes on what has been done / notes to future self
+* news.md: release version notes
 
 `templates`
 
 * html pages for render_template function
-  
+
 `sql`
 
 * sql files for creating tables to database
 
+`pylint`
+
+* pylint report for module files and own comments
+
 ## Additional information
 
 * built on the following
-  * Python version 3.13.7 
+  * Python version 3.13.7
   * sqlite3 version 3.37.0

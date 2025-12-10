@@ -1,3 +1,11 @@
+# Release v8 / 10.12.25
+
+*Cleaning up the code, no new functionalities*
+
+
+
+
+
 # Release v7 / 10.12.25
 
 *Better apprearance and enhancements to displaying item info on different pages*
@@ -6,10 +14,10 @@ Notes
 
 * key new features
   * more css styling on pages, eg. flash colouring
-  * more item info on index, find ja user pages   
-  
+  * more item info on index, find ja user pages
+
 * fixed bugs
-  * add/edit line checks for league and nationality 
+  * add/edit line checks for league and nationality
   * login/register not possible if already logged in
 
 
@@ -21,10 +29,10 @@ Notes
 
 * key new features
   * base layout in use in templates
-  * some minor upates to pages: item_page ratings etc. 
-  
+  * some minor upates to pages: item_page ratings etc.
+
 * fixed bugs
-  * user pages now require login 
+  * user pages now require login
 
 + known bugs in current functionalities
   + class number check only checks amount of inputs, not that both league and nationality have been inserted
@@ -41,9 +49,9 @@ Notes
   * length limits to text input (add / edit line)
   * search now works in all txt fields
   * not able to insert empty classes
-  
+
 * fixed bugs
-  * delete item 
+  * delete item
 
 + known bugs in current functionalities
   + class number check only checks amount of inputs, not that both league and nationality have been inserted
@@ -58,13 +66,13 @@ Notes
 + key new features
   + selected classes now showing more nicely on item page
   + flash msgs for user registering, login errors
-  
+
 * fixed bugs
   * chosen classes now showing in edit
 
 + known bugs in current functionalities
-  + no requirement for selecting at least one class 
-  
+  + no requirement for selecting at least one class
+
 
 # Release v4.0 / 27.11.25
 
@@ -77,7 +85,7 @@ Notes
   + rating other users lines is possible
 
 + known bugs in current functionalities
-  + in line edit, the predifined classes are not showing. however the edit itself works 
+  + in line edit, the predifined classes are not showing. however the edit itself works
 
 
 # Release v3.0 / 18.11.25
@@ -86,7 +94,7 @@ Notes
 
 Under the hood
 
-+ csrf 
++ csrf
 + url errors (html 403/404)
 + timestamps to user and items
 + bugfixes
@@ -94,7 +102,7 @@ Under the hood
 
 User pages
 
-+ shows user name, added lines and creation date of the user account 
++ shows user name, added lines and creation date of the user account
 
 Notes
 
@@ -106,7 +114,7 @@ Notes
 
 *Items can be altered and searched*
 
-+ [x] Adding and modifying items 
++ [x] Adding and modifying items
   + [x] an item can be modified (only by the user who created it)
   + [x] an item can be deleted (only by the user who created it)
   + [x] database can be searched (to all registered users)
@@ -125,17 +133,17 @@ Notes
 
 *Basic stuff works without displaying the items*
 
-Features that work 
+Features that work
 
 + [x] User stuff
-  + [x] user can create an account, log in and out 
+  + [x] user can create an account, log in and out
   + [x] users are written to db (users)
-+ [x] Adding and modifying items 
++ [x] Adding and modifying items
   + [x] an item (line) can be added
   + [x] gets written to db (items)
 + Other
-  + [x] some custom prints for example after registering etc. 
+  + [x] some custom prints for example after registering etc.
 
 Technical status
 
-+ all is done with functions and/or html pages, no special modules other than db_module and config.py 
++ all is done with functions and/or html pages, no special modules other than db_module and config.py
