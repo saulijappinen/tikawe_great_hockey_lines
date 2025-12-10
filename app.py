@@ -288,6 +288,11 @@ def create_rating():
 
 @app.route("/register") # this posts to /create, not login!!
 def register():
+
+    if "user_id" in session:
+        flash("ERROR: you can only register if you are not logged in!")
+        return redirect("/")
+
     return render_template("register.html")
 
 
@@ -312,8 +317,13 @@ def create_user():
 
 @app.route("/login", methods=["GET", "POST"]) # both methods!
 def login():
+
     if request.method == "GET": 
-        return render_template("login.html", filled={})
+        if "user_id" in session:
+            flash("ERROR: you are already logged in. Log out first to log in as another user.")
+            return redirect("/")
+        else:
+            return render_template("login.html", filled={})
          
     if request.method == "POST": 
         username = request.form["username"]
