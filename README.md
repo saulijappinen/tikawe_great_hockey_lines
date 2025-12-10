@@ -51,6 +51,7 @@ Create sqlite database and initialize content from .sql files (and see the table
 ```
 # create database and init classes
 $ sqlite3 database.db < sql/schemas.sql
+$ sqlite3 database.db < sql/init_classes.sql
 
 # check content (not required)
 $ sqlite3 database.db # open connection to database
