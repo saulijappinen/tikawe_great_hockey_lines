@@ -55,8 +55,8 @@ $ sqlite3 database.db < sql/init_classes.sql
 
 # check content (not required)
 $ sqlite3 database.db # open connection to database
-$ sqlite3 .tables # see tables
-$ sqlite3 .quit # close db
+$ .tables # see tables
+$ .quit # close connection to db
 ```
 
 Run the app
