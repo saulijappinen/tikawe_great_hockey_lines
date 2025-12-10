@@ -32,7 +32,7 @@
 
     {% for class_name, options in classes.items() %}
     <fieldset>
-        <legend>{{ class_name }}</legend>
+        <legend><b>{{ class_name|capitalize }}</b></legend>
         {% for option in options %}
             <div>
               <input type="checkbox" name="category" value="{{ class_name }}_{{ option }}">
