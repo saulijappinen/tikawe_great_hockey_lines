@@ -12,13 +12,31 @@
   padding: 0.2em 0.5em;  
 }
 
-.info {
-  border: 1px solid black;
-  margin: 1em;
-  padding: 0.5em;
-  background-color: blue;
-  color: white;
+/* Flash msg styles */
+
+/* Common flash base styles */
+.flash {
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 0.95rem;
 }
+
+/* Category-specific styles */
+
+.flash.success {
+  background: #e8f7e8;
+  border-color: #9dd49d;
+  color: #155724;
+}
+
+.flash.error {
+  background: #fdeaea;
+  border-color: #f5b5b5;
+  color: #842029;
+}
+
 
 
 /*top bar stuff*/

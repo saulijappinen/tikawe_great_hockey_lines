@@ -125,7 +125,7 @@ def delete_item(item_id):
         check_csrf() # only done when posting
         if "delete" in request.form:
             items.delete_item(item_id)
-            flash("A line got deleted from database!")
+            flash("A line got deleted from database!", "success")
             return redirect("/")
         else:
             return redirect("/item/" + str(item_id))
@@ -197,7 +197,7 @@ def create_item():
     keys = {item[0] for item in input_classes} #   set, only unique!
 
     if 'league' not in keys or 'nationality' not in keys: #len(keys) < 2
-        flash("ERROR: Need to insert at least one league and nationality!")
+        flash("Need to insert at least one league and nationality!", "error")
         return redirect("/add_item")
 
     # write to db AND return the id! not cool but works.. 
@@ -258,7 +258,7 @@ def update_item():
     keys = {item[0] for item in input_classes} #   set, only unique!
 
     if 'league' not in keys or 'nationality' not in keys: #len(keys) < 2
-        flash("ERROR: Need to insert at least one league and nationality!")
+        flash("Need to insert at least one league and nationality!", "error")
         return redirect("/edit_item/" + str(item_id))
 
     # write to db / user_id and line id not altered!!
@@ -290,7 +290,7 @@ def create_rating():
 def register():
 
     if "user_id" in session:
-        flash("ERROR: you can only register if you are not logged in!")
+        flash("You can only register if you are not logged in!", "error")
         return redirect("/")
 
     return render_template("register.html")
@@ -302,16 +302,16 @@ def create_user():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        flash("ERROR: inserted passwords not equal!")
+        flash("Inserted passwords not equal!", "error")
         return redirect("/register")
 
     try:
         users.create_user(username, password1) # hash created inside function
     except sqlite3.IntegrityError:
-        flash("ERROR: user already exists!")
+        flash("User already exists!", "error")
         return redirect("/register")
     
-    flash(f"Congratulations {username}! Please login next.")
+    flash(f"Congratulations {username}! Please login next.", "success")
 
     return redirect("/login")
 
@@ -320,7 +320,7 @@ def login():
 
     if request.method == "GET": 
         if "user_id" in session:
-            flash("ERROR: you are already logged in. Log out first to log in as another user.")
+            flash("You are already logged in. Log out first to log in as another user.", "error")
             return redirect("/")
         else:
             return render_template("login.html", filled={})
@@ -339,7 +339,7 @@ def login():
             print(f"session token is {session["csrf_token"]}")
             return redirect("/")
         else:
-            flash("Error: wrong username or password!")
+            flash("Wrong username or password!", "error")
             filled = {"username": username}
             return render_template("login.html", filled=filled)
 

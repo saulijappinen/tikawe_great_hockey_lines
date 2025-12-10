@@ -22,16 +22,20 @@
         Signed in as: <a href="/user/{{ session.user_id }}"><b>{{ session.username }}</b></a>
     </p>
   </div>
-  
+
   {% endif %}
   
   <hr> 
 
-  {% for message in get_flashed_messages() %}
-  <div class="info">
-    {{ message }}
-  </div>
-  {% endfor %}
+  {% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <div class="flash">
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% endwith %}
 
   {% block content %}{% endblock %}  
 </body>
