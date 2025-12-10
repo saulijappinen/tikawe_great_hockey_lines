@@ -1,10 +1,9 @@
-/*body {
+body {
   margin: auto;
-  max-width: 50em;
-  font-family: sans-serif;
-  background-color: lightblue;
+  max-width: 80em;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 14px;
 }
-*/
 
 .item {
   border: 1px solid black;
@@ -12,9 +11,14 @@
   padding: 0.2em 0.5em;  
 }
 
+h1 {
+    margin-bottom: 0.5rem;         /* space below the line before links */
+    font-weight: 700;
+    font-size: 32px;
+  }
+
 /* Flash msg styles */
 
-/* Common flash base styles */
 .flash {
   padding: 0.5rem 0.75rem;
   margin: 0.5rem 0;
@@ -22,8 +26,6 @@
   border-radius: 4px;
   font-size: 0.95rem;
 }
-
-/* Category-specific styles */
 
 .flash.success {
   background: #e8f7e8;
@@ -38,15 +40,7 @@
 }
 
 
-
 /*top bar stuff*/
-
-h1.app-title {
-    /*border-bottom: 2px solid #ccc; */  /* underline */
-    /*padding-bottom: 0.25rem;*        /* space between text and line */
-    margin-bottom: 0.5rem;         /* space below the line before links */
-    font-weight: 700;
-  }
 
 hr { /*hr tag, not class!!*/
   border: none;
@@ -62,6 +56,13 @@ hr { /*hr tag, not class!!*/
     gap: 20px;
 }
 
+.user-info {
+    margin: 0;
+    text-align: right;
+    margin-right: 3rem;
+}
+
+/* NAVS also to item_page!! */
 .nav-links {
     display: flex;
     gap: 15px;
@@ -75,8 +76,7 @@ hr { /*hr tag, not class!!*/
     border-radius: 3px;
     text-decoration: none;
     color: #333;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     display: inline-block;
 }
 
@@ -85,8 +85,3 @@ hr { /*hr tag, not class!!*/
     border-color: #999;
 }
 
-.user-info {
-    margin: 0;
-    text-align: right;
-    margin-right: 3rem;
-}
