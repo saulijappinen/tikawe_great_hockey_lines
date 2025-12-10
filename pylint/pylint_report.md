@@ -18,9 +18,8 @@ Decided to leave these too long lines if only considers comments because it is c
 
 # app.py
 
-**report**
+**Report**
 
-************* Module app
 app.py:19:0: C0301: Line too long (107/100) (line-too-long)
 app.py:27:0: C0301: Line too long (107/100) (line-too-long)
 app.py:203:0: C0301: Line too long (118/100) (line-too-long)
@@ -46,37 +45,40 @@ app.py:315:0: R1710: Either all return statements in a function should return an
 app.py:342:0: C0116: Missing function or method docstring (missing-function-docstring)
 app.py:349:0: C0116: Missing function or method docstring (missing-function-docstring)
 
-------------------------------------------------------------------
 Your code has been rated at 8.84/10 (previous run: 8.79/10, +0.05)
 
 **Comments**
 
 `R1710: Either all return statements in a function should return an expression, or none of them should.`
 
-In both cases, the functions (delete_item and login) have post and get methods. In my understanding, this is a warning if the case would be that the method is neither of them but in reality this is not possible.
+In both cases, the functions (delete_item() and login()) have post and get methods. In my understanding, this is a warning if the case would be that the method is neither of them but in reality this is not possible.
 
 # config.py
 
+**Report**
+
 config.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-------------------------------------------------------------------
+
 Your code has been rated at 5.00/10 (previous run: 0.00/10, +5.00)
 
 
 # users.py
 
-************* Module users
+**Report**
+
 users.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 users.py:6:0: C0116: Missing function or method docstring (missing-function-docstring)
 users.py:11:0: C0116: Missing function or method docstring (missing-function-docstring)
 users.py:15:0: C0116: Missing function or method docstring (missing-function-docstring)
 users.py:22:0: C0116: Missing function or method docstring (missing-function-docstring)
-------------------------------------------------------------------
+
 Your code has been rated at 8.00/10 (previous run: 7.60/10, +0.40)
 
 
 # items.py
 
-************* Module items
+**Report**
+
 items.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 items.py:6:0: C0116: Missing function or method docstring (missing-function-docstring)
 items.py:6:0: R0913: Too many arguments (6/5) (too-many-arguments)
@@ -92,9 +94,9 @@ items.py:134:0: C0116: Missing function or method docstring (missing-function-do
 items.py:140:0: C0116: Missing function or method docstring (missing-function-docstring)
 items.py:161:0: C0116: Missing function or method docstring (missing-function-docstring)
 items.py:173:0: C0116: Missing function or method docstring (missing-function-docstring)
-------------------------------------------------------------------
+
 Your code has been rated at 7.37/10 (previous run: 7.19/10, +0.18)
 
-**comments**
+**Comments**
 
 pylint triggers add_item() and update_item() which write to db in two parts. However all 6 arguments in the function are needed for the two db writes in total.
