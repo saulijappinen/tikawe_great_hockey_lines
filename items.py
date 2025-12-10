@@ -5,9 +5,12 @@ import db
 # for adding lines AND CLASSES!
 def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
 
-    curtime = datetime.now().replace(microsecond=0) 
-    sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id, modification_time) VALUES (?, ?, ?, ?, ?, ?)"
-    db.execute(sql, [linename, player_lw, player_c, player_rw, user_id, curtime]) 
+    curtime = datetime.now().replace(microsecond=0)
+    sql = """
+        INSERT INTO items (linename, player_lw, player_c, player_rw, user_id, modification_time)
+        VALUES (?, ?, ?, ?, ?, ?)
+        """
+    db.execute(sql, [linename, player_lw, player_c, player_rw, user_id, curtime])
     #print(f"Line {linename} added!") # for dev
 
     # classes of the line to classes
@@ -19,47 +22,47 @@ def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
 
     return item_id # this so that redirect after adding works!!
 
-# get functions 
+# get functions
 def get_all_items():
 
     return db.query(
         """
-        SELECT i.id, 
-        i.linename, 
-        i.player_lw, 
-        i.player_c, 
-        i.player_rw, 
-        i.user_id, 
+        SELECT i.id,
+        i.linename,
+        i.player_lw,
+        i.player_c,
+        i.player_rw,
+        i.user_id,
         i.modification_time,
-        u.username  
-        
+        u.username
+
         FROM ITEMS as i
-        
+
         LEFT JOIN USERS as u
             on i.user_id = u.id
 
         ORDER BY i.ID DESC
         """
-        ) 
+        )
 
 
-def get_one_item(item_id): 
+def get_one_item(item_id):
 
     sql = """
-    SELECT i.id 
-    , i.linename 
-    , i.player_lw 
-    , i.player_c 
+    SELECT i.id
+    , i.linename
+    , i.player_lw
+    , i.player_c
     , i.player_rw
     , i.user_id
-    , i.modification_time  
+    , i.modification_time
     , u.username
 
-    FROM ITEMS as i 
-    
+    FROM ITEMS as i
+
     LEFT JOIN USERS as u
         on i.user_id = u.id
-    
+
     WHERE i.id =  ?
     """
 
@@ -70,7 +73,7 @@ def get_one_item(item_id):
 # altering items functions ----
 
 def update_item(linename, player_lw, player_c, player_rw, item_id, classes):
-    curtime = datetime.now().replace(microsecond=0) 
+    curtime = datetime.now().replace(microsecond=0)
     sql = """UPDATE items SET linename = ?,
                               player_lw = ?,
                               player_c = ?,
@@ -103,18 +106,18 @@ def delete_item(item_id):
     db.execute(sql, [item_id])
 
 def find_items(query):
-    query_wildcards = f"%{query}%" 
+    query_wildcards = f"%{query}%"
     query_wildcards = query_wildcards.lower() # not case sensitive!
 
-    sql = """SELECT 
-            i.id, 
-            i.linename, 
+    sql = """SELECT
+            i.id,
+            i.linename,
             i.user_id,
-            i.modification_time, 
+            i.modification_time,
             u.username
-            
-            FROM items as i 
-            
+
+            FROM items as i
+
             LEFT JOIN USERS as u
                 on i.user_id = u.id
 
@@ -123,34 +126,34 @@ def find_items(query):
              or lower(i.player_c) LIKE ?
              or lower(i.player_rw) LIKE ?
              ORDER BY i.id DESC"""
-    
+
     return db.query(sql, [query_wildcards, query_wildcards, query_wildcards, query_wildcards])
 
 # RATINGS
 
 def add_rating(item_id, user_id, rating):
-    curtime = datetime.now().replace(microsecond=0) 
+    curtime = datetime.now().replace(microsecond=0)
     sql = "INSERT INTO ratings (item_id, user_id, rating, rating_time) VALUES (?, ?, ?, ?)"
-    db.execute(sql, [item_id, user_id, rating, curtime]) 
-    #print(f"Rating added to item {item_id}!") 
+    db.execute(sql, [item_id, user_id, rating, curtime])
+    #print(f"Rating added to item {item_id}!")
 
-def get_ratings(item_id):    
+def get_ratings(item_id):
     sql = """
     SELECT r.id
-    , r.item_id  
-    , r.user_id 
-    , r.rating 
-    , r.rating_time 
+    , r.item_id
+    , r.user_id
+    , r.rating
+    , r.rating_time
     , u.username
 
-    FROM ratings as r 
-    
+    FROM ratings as r
+
     LEFT JOIN USERS as u
         on r.user_id = u.id
-    
+
     WHERE r.item_id =  ? -- item-id, not rating id!
     ORDER BY r.id DESC
-    """ 
+    """
     return db.query(sql, [item_id])
 
 # CLASSES
