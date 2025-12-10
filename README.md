@@ -100,4 +100,5 @@ Documentation files:
 ## Additional information
 
 * built on the following
-  * Python 3.13.7 
+  * Python version 3.13.7 
+  * sqlite3 version 3.37.0

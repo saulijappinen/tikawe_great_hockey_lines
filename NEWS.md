@@ -1,3 +1,18 @@
+# Release v7 / 10.12.25
+
+*Better apprearance and enhancements to displaying item info on different pages*
+
+Notes
+
+* key new features
+  * more css styling on pages, eg. flash colouring
+  * more item info on index, find ja user pages   
+  
+* fixed bugs
+  * add/edit line checks for league and nationality 
+  * login/register not possible if already logged in
+
+
 # Release v6 / 9.12.25
 
 *First apprearance update to all pages*
