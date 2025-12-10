@@ -8,11 +8,11 @@
   <h2>Selected line: {{ item_page.linename }}</h2>
 
   {% if session.user_id == item_page.user_id %} <!-- only if the creator is on the page-->
-
-  <p>
-    <a href="/edit_item/{{ item_page.id }}">Edit your line</a> |
-    <a href="/delete_item/{{ item_page.id }}">Delete your line</a>
-  </p>
+  
+  <nav class="nav-links">
+    <a href="/edit_item/{{ item_page.id }}" class="nav-button">Edit your line</a>
+    <a href="/delete_item/{{ item_page.id }}" class="nav-button">Delete your line</a>
+  </nav>
 
   {% endif %}
 
