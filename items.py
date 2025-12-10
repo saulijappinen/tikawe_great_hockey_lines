@@ -5,8 +5,7 @@ import db
 # for adding lines AND CLASSES!
 def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
 
-    # line info to items
-    curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
+    curtime = datetime.now().replace(microsecond=0) 
     sql = "INSERT INTO items (linename, player_lw, player_c, player_rw, user_id, modification_time) VALUES (?, ?, ?, ?, ?, ?)"
     db.execute(sql, [linename, player_lw, player_c, player_rw, user_id, curtime]) 
     #print(f"Line {linename} added!") # for dev
@@ -21,7 +20,7 @@ def add_item(linename, player_lw, player_c, player_rw, user_id, classes):
     return item_id # this so that redirect after adding works!!
 
 # get functions 
-def get_all_items(): # for displaying all
+def get_all_items():
 
     return db.query(
         """
@@ -44,7 +43,7 @@ def get_all_items(): # for displaying all
         ) 
 
 
-def get_one_item(item_id): # for displaying one
+def get_one_item(item_id): 
 
     sql = """
     SELECT i.id 
@@ -71,7 +70,7 @@ def get_one_item(item_id): # for displaying one
 # altering items functions ----
 
 def update_item(linename, player_lw, player_c, player_rw, item_id, classes):
-    curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
+    curtime = datetime.now().replace(microsecond=0) 
     sql = """UPDATE items SET linename = ?,
                               player_lw = ?,
                               player_c = ?,
@@ -104,8 +103,8 @@ def delete_item(item_id):
     db.execute(sql, [item_id])
 
 def find_items(query):
-    query_wildcards = f"%{query}%" # wildcards possible
-    query_wildcards = query_wildcards.lower() # and make lowercase
+    query_wildcards = f"%{query}%" 
+    query_wildcards = query_wildcards.lower() # not case sensitive!
 
     sql = """SELECT 
             i.id, 
@@ -130,7 +129,7 @@ def find_items(query):
 # RATINGS
 
 def add_rating(item_id, user_id, rating):
-    curtime = datetime.now().replace(microsecond=0) # generated, not set when calling the function!
+    curtime = datetime.now().replace(microsecond=0) 
     sql = "INSERT INTO ratings (item_id, user_id, rating, rating_time) VALUES (?, ?, ?, ?)"
     db.execute(sql, [item_id, user_id, rating, curtime]) 
     #print(f"Rating added to item {item_id}!") 

@@ -39,14 +39,14 @@ def require_login():
         abort(403)
 
 def check_csrf(): 
-    if "csrf_token" not in request.form: # form does not return token at all
+    if "csrf_token" not in request.form: 
         abort(403)
     if request.form["csrf_token"] != session["csrf_token"]: # malicious field
         abort(403)
 
 # lines/items stuff
 
-@app.route("/item/<int:item_id>") # one page for every line in db
+@app.route("/item/<int:item_id>") 
 def show_item(item_id):
 
     require_login()
@@ -54,7 +54,7 @@ def show_item(item_id):
     item = items.get_one_item(item_id)
 
     if not item: 
-        abort(404) # https://en.wikipedia.org/wiki/HTTP_404
+        abort(404) 
 
     rating = items.get_ratings(item_id)
     classes_for_item = items.get_classes_for_item(item_id)
@@ -79,13 +79,13 @@ def edit_item(item_id):
 
     item = items.get_one_item(item_id)
 
-    if not item: # function returns None if no ID
-        abort(404) # https://en.wikipedia.org/wiki/HTTP_404
+    if not item: 
+        abort(404) 
 
     if item["user_id"] != session["user_id"]:
-        abort(403) # https://en.wikipedia.org/wiki/HTTP_403
+        abort(403) 
 
-    all_classes = items.get_all_classes() # all possible
+    all_classes = items.get_all_classes() 
 
     selected_classes = {}
 
@@ -108,17 +108,17 @@ def delete_item(item_id):
 
     item = items.get_one_item(item_id)
 
-    if not item: # function returns None if no ID
-        abort(404) # https://en.wikipedia.org/wiki/HTTP_404
+    if not item: 
+        abort(404) 
 
     if item["user_id"] != session["user_id"]:
-        abort(403) # https://en.wikipedia.org/wiki/HTTP_403
+        abort(403) 
 
     if request.method == "GET":
         return render_template("item_delete.html", item=item)
 
     if request.method == "POST":
-        check_csrf() # only done when posting
+        check_csrf() 
         if "delete" in request.form:
             items.delete_item(item_id)
             flash("A line got deleted from database!", "success")
@@ -189,7 +189,7 @@ def create_item():
 
     keys = {item[0] for item in input_classes} #   set, only unique!
 
-    if 'league' not in keys or 'nationality' not in keys: #len(keys) < 2
+    if 'league' not in keys or 'nationality' not in keys: 
         flash("Need to insert at least one league and nationality!", "error")
         return redirect("/add_item")
 
@@ -203,17 +203,16 @@ def update_item():
 
     require_login()
     check_csrf()
-
-    # item id from page hidden variable
-    item_id = request.form["item_id"]
+   
+    item_id = request.form["item_id"]  # item id from page hidden variable
 
     item = items.get_one_item(item_id) # need to do here also because content could be altered for another item (video 8), not just in edit/delete!
 
     if item["user_id"] != session["user_id"]:
         abort(403)
 
-    # user info
     user_id = session["user_id"]
+
     # main info
     input_linename = request.form["linename"]
     input_player_lw = request.form["player_lw"]
@@ -248,14 +247,12 @@ def update_item():
     
     keys = {item[0] for item in input_classes} #   set, only unique!
 
-    if 'league' not in keys or 'nationality' not in keys: #len(keys) < 2
+    if 'league' not in keys or 'nationality' not in keys: 
         flash("Need to insert at least one league and nationality!", "error")
         return redirect("/edit_item/" + str(item_id))
 
-    # write to db / user_id and line id not altered!!
     items.update_item(input_linename, input_player_lw, input_player_c, input_player_rw, item_id, input_classes)
 
-    # ret to item page
     return redirect("item/" + str(item_id))
 
 @app.route("/create_rating", methods=["POST"]) 
@@ -268,7 +265,6 @@ def create_rating():
     user_id = session["user_id"]
     item_id = request.form["item_id"]
 
-    # write to db
     items.add_rating(item_id, user_id, input_rating)
 
     return redirect("item/" + str(item_id))
@@ -306,7 +302,7 @@ def create_user():
 
     return redirect("/login")
 
-@app.route("/login", methods=["GET", "POST"]) # both methods!
+@app.route("/login", methods=["GET", "POST"]) 
 def login():
 
     if request.method == "GET": 
@@ -322,7 +318,7 @@ def login():
 
         user_id = users.check_login(username, password) # only returns if user exists
      
-        if user_id: # if exists = check_login returns id 
+        if user_id: 
             # these are kept in memory for the whole session
             session["user_id"] = user_id
             session["username"] = username
@@ -335,7 +331,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    if "user_id" in session: # when logged in
+    if "user_id" in session: 
         del session["username"]
         del session["user_id"]
     return redirect("/")
@@ -348,7 +344,7 @@ def show_user(user_id):
     user_info = users.get_user_info(user_id)
 
     if not user_info: # function returns None if no user
-        abort(404) # https://en.wikipedia.org/wiki/HTTP_404
+        abort(404) 
 
     user_items = users.get_user_items(user_id)
 
