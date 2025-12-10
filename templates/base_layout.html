@@ -8,22 +8,25 @@
 
 
 <body>
-  <h1>Welcome to the world of great ice hockey lines 🏒 🥅</h1>
+  <h1 class="app-title">🏒 World of Great Ice Hockey Lines 🥅</h1>
     
   {% if session.user_id %}
-    <a href="/">Front page</a> |
-    <a href="/add_item">Create a new line</a> |
-    <a href="/find_item">Search database</a> |
-    <a href="/logout">Log out</a> 
-
-    <p>
-    Time to get fanatic, <a href="/user/{{ session.user_id }}"><b>{{ session.username }}</b></a>! ⚡️ Your id number is {{ session.user_id }}
+  <div class="top-bar">
+    <nav class="nav-links">
+        <a href="/" class="nav-button">Front page</a>
+        <a href="/add_item" class="nav-button">Create a new line</a>
+        <a href="/find_item" class="nav-button">Search database</a>
+        <a href="/logout" class="nav-button">Log out</a>
+    </nav>
+    <p class="user-info">
+        Signed in as: <a href="/user/{{ session.user_id }}"><b>{{ session.username }}</b></a>
     </p>
+  </div>
+  
+  {% endif %}
   
   <hr> 
 
-  {% endif %}
-  
   {% for message in get_flashed_messages() %}
   <div class="info">
     {{ message }}
