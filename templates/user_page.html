@@ -7,19 +7,24 @@
 
   <h2>Selected user: {{ user.username }}</h2>
 
-  <h3>User info ℹ️</h3>
+  <h3>User info ℹ️ </h3>
 
   <p>{{ user.username }} (id {{ user.id }}) has been a member of our community since {{ user.creation_time }}. </p>
   <p>{{ user.username }} has created {{ items | count }} line(s). </p>
 
   <h3>Lines added by the user</h3>
 
-  {% for item in items %}
-  <div class="item">
-    <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
-    Added by: <a href="/user/{{ item.user_id }}">{{ item.username }}</a> <br />
-    Last modified {{ item.modification_time }} <br> 
-  </div>
-{% endfor %}
+  {% if items|length == 0 %}
+    <p>No lines added yet.</p>
+
+  {% else %}
+    {% for item in items %}
+      <div class="item">
+        <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
+        Last modified: {{ item.modification_time }} <br> 
+      </div>
+    {% endfor %}
+  
+  {% endif %}
 
 {% endblock %}
