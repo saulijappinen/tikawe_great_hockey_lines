@@ -9,7 +9,7 @@ def get_user_info(user_id):
     return result[0] if result else None
 
 def get_user_items(user_id):
-    sql = "SELECT id, linename FROM items WHERE user_id = ? ORDER BY id DESC"
+    sql = "SELECT id, linename, modification_time FROM items WHERE user_id = ? ORDER BY id DESC"
     return db_module.query(sql, [user_id])
 
 def create_user(username, password):

@@ -109,13 +109,23 @@ def find_items(query):
     query_wildcards = f"%{query}%" # wildcards possible
     query_wildcards = query_wildcards.lower() # and make lowercase
 
-    sql = """SELECT id, linename
-             FROM items
-             WHERE lower(linename) LIKE ?
-             or lower(player_lw) LIKE ?
-             or lower(player_c) LIKE ?
-             or lower(player_rw) LIKE ?
-             ORDER BY id DESC"""
+    sql = """SELECT 
+            i.id, 
+            i.linename, 
+            i.user_id,
+            i.modification_time, 
+            u.username
+            
+            FROM items as i 
+            
+            LEFT JOIN USERS as u
+                on i.user_id = u.id
+
+             WHERE lower(i.linename) LIKE ?
+             or lower(i.player_lw) LIKE ?
+             or lower(i.player_c) LIKE ?
+             or lower(i.player_rw) LIKE ?
+             ORDER BY i.id DESC"""
     
     return db_module.query(sql, [query_wildcards, query_wildcards, query_wildcards, query_wildcards])
 
