@@ -21,7 +21,7 @@
     {% for item in items %}
       <div class="item">
         <a href="/item/{{ item.id }}">{{  item.linename  }}</a> <br> 
-        Last modified: {{ item.modification_time }} <br> 
+        <i>Last modified:</i> {{ item.modification_time }} <br> 
       </div>
     {% endfor %}
   
